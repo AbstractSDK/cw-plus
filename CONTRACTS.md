@@ -29,12 +29,19 @@ to `workflows.test.jobs`)
 1. Add to the `ALL_CONTRACTS` variable in `scripts/publish.sh`
 
 1. Set the `version` variable in `Cargo.toml` to the same version as `packages/cw20`.
-For example, "0.5.0" rather than the default "0.1.0" 
+For example, "0.5.0" rather than the default "0.1.0"
 
-1. Edit the root `Cargo.toml` file and add a `profile.release.package.CONTRACT_NAME` 
+1. Edit the root `Cargo.toml` file and add a `profile.release.package.CONTRACT_NAME`
 section, just like `profile.release.package.cw1-subkeys`, but with your
 package name.
 
 1. Run `cargo build && cargo test` in the new contract dir
 
 1. Commit all changes and push the branch. Open a PR and ensure the CI runs this.
+
+SCHEMAS
+```bash
+SCHEMA_OUT_DIR=$(cd ../schemas && echo "$PWD") \
+VERSION=1.0.1 \
+  cargo ws exec --no-bail bash -lc '{ outdir="$SCHEMA_OUT_DIR/cw-plus/${PWD##*/}/$VERSION"; mkdir -p "$outdir"; cp -a "schema/." "$outdir"; }'
+  ```

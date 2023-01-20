@@ -1,0 +1,27 @@
+{
+  "juno": {
+    "uni-5": {
+      "code_ids": {
+        "cw_plus:cw1_subkeys": 4013,
+        "cw_plus:cw1_whitelist": 4015,
+        "cw_plus:cw20_base": 4012,
+        "cw_plus:cw20_ics20": 4014,
+        "cw_plus:cw3_fixed_multisig": 4010,
+        "cw_plus:cw3_flex_multisig": 4017,
+        "cw_plus:cw4_group": 4016,
+        "cw_plus:cw4_stake": 4011
+      },
+      "default": {
+        "abstract:version_control": "terra1d7ud0c3prk5j7mhpndnkvxe4xmltj2gvgxrz2l0a49ehvneu7e3s5nsakt"
+      }
+    }
+  },
+  "terra": {
+    "pisco-1": {
+      "code_ids": {},
+      "default": {
+        "abstract:version_control": "terra1d7ud0c3prk5j7mhpndnkvxe4xmltj2gvgxrz2l0a49ehvneu7e3s5nsakt"
+      }
+    }
+  }
+}
