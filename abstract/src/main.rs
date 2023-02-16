@@ -1,75 +1,53 @@
 use std::env;
-use boot_core::prelude::*;
-use cosmwasm_std::{Addr, Empty};
 use std::sync::Arc;
 
-use boot_core::networks::UNI_5;
-use boot_core::prelude::*;
-
+use abstract_boot::VersionControl;
+use abstract_os::{
+    objects::module::{ModuleInfo, ModuleVersion},
+    objects::module_reference::ModuleReference,
+    version_control
+};
+use boot_core::{
+    prelude::*,
+    networks::{NetworkInfo, parse_network},
+};
+use clap::Parser;
+use cosmwasm_std::{Addr, Empty};
+use log::info;
 use semver::Version;
 use tokio::runtime::Runtime;
-
-use abstract_boot::{VersionControl};
-use abstract_os::objects::module::{ModuleInfo, ModuleVersion};
-use abstract_os::objects::module_reference::ModuleReference;
-use abstract_os::version_control;
-use boot_core::networks::terra::PISCO_1;
 
 #[boot_contract(Empty, Empty, Empty, Empty)]
 pub struct Standalone<Chain>;
 
 // implement chain-generic functions
 impl<Chain: BootEnvironment> Standalone<Chain> {
-    pub fn new(chain: Chain, id: &str, filename: &str) -> Self {
+    pub fn new(chain: Chain, id: &str, filepath: &str) -> Self {
         Self(
-            Contract::new(id, chain).with_wasm_path(filename),
+            Contract::new(id, chain).with_wasm_path(filepath),
         )
     }
-}
-
-pub fn register_standalone<Chain: BootEnvironment>(
-    vc: &VersionControl<Chain>,
-    modules: Vec<&Contract<Chain>>,
-    version: &Version,
-) -> Result<(), BootError> where
-    TxResponse<Chain>: IndexResponse {
-    let apps_to_register: Result<Vec<(ModuleInfo, ModuleReference)>, BootError> = modules
-        .iter()
-        .map(|app| {
-            Ok((
-                ModuleInfo::from_id(&app.id, ModuleVersion::Version(version.to_string()))?,
-                ModuleReference::Standalone(app.code_id()?),
-            ))
-        })
-        .collect();
-    vc.execute(
-        &version_control::ExecuteMsg::AddModules {
-            modules: apps_to_register?,
-        },
-        None,
-    )?;
-    Ok(())
 }
 
 const CONTRACT_VERSION: &str = "1.0.1";
 // const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
-fn deploy() -> anyhow::Result<()> {
-    let mut faxvec: Vec<std::path::PathBuf> = Vec::new();
+fn deploy(network: NetworkInfo) -> anyhow::Result<()> {
+    let mut wasm_files: Vec<std::path::PathBuf> = Vec::new();
     let artifacts_dir = env::var("ARTIFACTS_DIR").unwrap();
     for element in std::path::Path::new(&artifacts_dir).read_dir().unwrap() {
         let path = element.unwrap().path();
         if let Some(extension) = path.extension() {
             if extension == "wasm" {
-                faxvec.push(path);
+                wasm_files.push(path);
             }
         }
     }
 
-    // panic!("Found {} contracts: {:?} {}", faxvec.len(), faxvec, artifacts_dir);
+    info!("Found {} contracts: {:?} in {}", wasm_files.len(), wasm_files, artifacts_dir);
 
     let cw_version: Version = CONTRACT_VERSION.parse().unwrap();
-    let network = PISCO_1;
+    info!("here");
 
     let rt = Arc::new(Runtime::new()?);
     let options = DaemonOptionsBuilder::default().network(network).build();
@@ -79,14 +57,21 @@ fn deploy() -> anyhow::Result<()> {
         chain.clone(),
         &Addr::unchecked(std::env::var("VERSION_CONTROL").expect("VERSION_CONTROL not set")),
     );
+    info!("here");
 
-    let mut standalones: Vec<Standalone<_>> = faxvec
+    let mut standalones: Vec<Standalone<_>> = wasm_files
         .iter()
         .map(|path| {
             let filename = path.file_name().unwrap().to_str().unwrap();
 
             let contract_name = filename.split('.').next().unwrap();
-            Standalone::new(chain.clone(), &format!("cw_plus:{}", contract_name), path.to_str().unwrap())
+            let contract_name = contract_name.replace("_", "-");
+            let contract_id = format!("cw-plus:{}", contract_name);
+            info!("{}", contract_id);
+
+            let filepath = path.to_str().unwrap();
+
+            Standalone::new(chain.clone(), &contract_id, filepath)
         })
         .collect();
 
@@ -96,10 +81,19 @@ fn deploy() -> anyhow::Result<()> {
 
     let standalone_instances = standalones.iter().map(|c| c.as_instance()).collect();
 
-    register_standalone(&version_control, standalone_instances, &cw_version)?;
+    version_control.register_standalones(standalone_instances, &cw_version)?;
 
     Ok(())
 }
+
+#[derive(Parser, Default, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Arguments {
+    /// Network Id to deploy on
+    #[arg(short, long)]
+    network_id: String,
+}
+
 
 fn main() {
     dotenv().ok();
@@ -107,7 +101,12 @@ fn main() {
 
     use dotenv::dotenv;
 
-    if let Err(ref err) = deploy() {
+
+    let args = Arguments::parse();
+
+    let network = parse_network(&args.network_id);
+
+    if let Err(ref err) = deploy(network) {
         log::error!("{}", err);
         err.chain()
             .skip(1)

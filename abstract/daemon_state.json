@@ -1,4 +1,21 @@
 {
+  "archway": {
+    "constantine-1": {
+      "code_ids": {
+        "cw-plus:cw1-subkeys": 128,
+        "cw-plus:cw1-whitelist": 130,
+        "cw-plus:cw20-base": 127,
+        "cw-plus:cw20-ics20": 129,
+        "cw-plus:cw3-fixed-multisig": 125,
+        "cw-plus:cw3-flex-multisig": 132,
+        "cw-plus:cw4-group": 131,
+        "cw-plus:cw4-stake": 126
+      },
+      "default": {
+        "abstract:version-control": "archway1rqkfdlkkerc79w3hhc8zd667s7p8kryhelrftn2n50yw9wm2a2fqacg3pw"
+      }
+    }
+  },
   "juno": {
     "uni-5": {
       "code_ids": {
@@ -14,12 +31,46 @@
       "default": {
         "abstract:version_control": "terra1d7ud0c3prk5j7mhpndnkvxe4xmltj2gvgxrz2l0a49ehvneu7e3s5nsakt"
       }
+    },
+    "uni-6": {
+      "code_ids": {
+        "cw-plus:cw1-subkeys": 301,
+        "cw-plus:cw1-whitelist": 303,
+        "cw-plus:cw20-base": 300,
+        "cw-plus:cw20-ics20": 302,
+        "cw-plus:cw3-fixed-multisig": 298,
+        "cw-plus:cw3-flex-multisig": 305,
+        "cw-plus:cw4-group": 304,
+        "cw-plus:cw4-stake": 299
+      },
+      "default": {
+        "abstract:version-control": "juno1082cenpp2sxm4pw9r2c3evffmq6aczzkqduprc6ezd3mwpce0cks95j3x3"
+      }
+    }
+  },
+  "neutron": {
+    "baryon-1": {
+      "code_ids": {
+        "cw-plus:cw1-subkeys": 54,
+        "cw-plus:cw1-whitelist": 56,
+        "cw-plus:cw20-base": 53,
+        "cw-plus:cw20-ics20": 55,
+        "cw-plus:cw3-fixed-multisig": 51,
+        "cw-plus:cw3-flex-multisig": 58,
+        "cw-plus:cw4-group": 57,
+        "cw-plus:cw4-stake": 52
+      },
+      "default": {
+        "abstract:version-control": "neutron1qg5ega6dykkxc307y25pecuufrjkxkaggkkxh7nad0vhyhtuhw3smncf9k",
+        "abstract:version_control": "neutron1qg5ega6dykkxc307y25pecuufrjkxkaggkkxh7nad0vhyhtuhw3smncf9k"
+      }
     }
   },
   "terra": {
     "pisco-1": {
       "code_ids": {},
       "default": {
+        "abstract:version-control": "terra1d7ud0c3prk5j7mhpndnkvxe4xmltj2gvgxrz2l0a49ehvneu7e3s5nsakt",
         "abstract:version_control": "terra1d7ud0c3prk5j7mhpndnkvxe4xmltj2gvgxrz2l0a49ehvneu7e3s5nsakt"
       }
     }

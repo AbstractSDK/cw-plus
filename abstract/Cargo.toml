@@ -6,10 +6,19 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-boot-cw-plus = "0.5.1"
-boot-core = "0.5.1"
-abstract-boot = "0.5.2"
+#boot-cw-plus = "0.5.1"
+#boot-core = "0.5.1"
+#abstract-boot = "0.5.2"
 cosmwasm-std = "1.1.9"
+#abstract-os = "0.5.2"
+
+#boot-cw-plus = { version = "0.6.0", path = "../../BOOT-private/boot-cw-plus" }
+#boot-core = { version = "0.6.0", path = "../../BOOT-private/boot-core", features = ["daemon"] }
+boot-core = { version = "0.6.0", features = ["daemon"] }
+boot-cw-plus = { version = "0.6.0" }
+abstract-boot = { version = "0.10.0", features = ["daemon"] }
+abstract-os = { version = "0.10.0" }
+
 
 tokio = { version = "1.4", features = ["full"] }
 log = "0.4.14"
@@ -19,6 +28,9 @@ reqwest = { version = "0.11.9" }
 dotenv = "0.15.0"
 env_logger = "0.10.0"
 
-semver = { package = "cw-semver", version = "1.0.0", git = "https://github.com/Abstract-OS/cw-semver.git" }
-abstract-os = "0.5.2"
+#cw-semver = { version = "1.0", git = "https://github.com/Abstract-OS/cw-semver.git" }
+
+semver = "1.0"
+#semver = { package = "cw-semver", version = "1.0.0", git = "https://github.com/Abstract-OS/cw-semver.git" }
+#semver = { package = "cw-semver", version = "1.0.0", git = "https://github.com/Abstract-OS/cw-semver.git" }
 clap =  { version = "4.0.32", features = ["derive"] }
