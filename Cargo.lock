@@ -244,8 +244,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch"
-version = "0.11.4"
-source = "git+https://github.com/AbstractSDK/cw-orchestrator#92b2448ff990c81093174eb9baf2e9452b7a8c37"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ca22a6ad1395f630b5f5e0407c1188fe0ea0330a5e651957097161c959b85f2d"
 dependencies = [
  "anyhow",
  "cosmwasm-std",
@@ -262,8 +263,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-contract-derive"
-version = "0.11.4"
-source = "git+https://github.com/AbstractSDK/cw-orchestrator#92b2448ff990c81093174eb9baf2e9452b7a8c37"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "805d17685bb84636c348c1f20f1ecf74a1c6a86eead16d9b66283d054ca4719e"
 dependencies = [
  "convert_case",
  "log",
@@ -273,8 +275,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-fns-derive"
-version = "0.11.4"
-source = "git+https://github.com/AbstractSDK/cw-orchestrator#92b2448ff990c81093174eb9baf2e9452b7a8c37"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f335a2bc22bd6da20e1d70138d8923d0cd9e7f614bc21fb187954979aa7f0c98"
 dependencies = [
  "convert_case",
  "proc-macro2",
