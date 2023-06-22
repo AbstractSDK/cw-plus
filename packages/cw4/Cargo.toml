@@ -12,7 +12,7 @@ homepage = "https://cosmwasm.com"
 interface = ["dep:cw-orch"]
 
 [dependencies]
-cw-orch = { version="0.13", optional = true }
+cw-orch = { workspace=true, optional = true }
 
 cw-storage-plus = "1.0.1"
 cosmwasm-schema = "1.1.0"
