@@ -29,6 +29,7 @@ const CONTRACT_NAME: &str = "crates.io:cw20-ics20";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn instantiate(
     mut deps: DepsMut,
     _env: Env,
@@ -57,6 +58,7 @@ pub fn instantiate(
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn execute(
     deps: DepsMut,
     env: Env,
@@ -209,6 +211,7 @@ const MIGRATE_VERSION_2: &str = "0.12.0-alpha1";
 const MIGRATE_VERSION_3: &str = "0.13.0";
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn migrate(mut deps: DepsMut, env: Env, msg: MigrateMsg) -> Result<Response, ContractError> {
     let version: Version = CONTRACT_VERSION.parse().map_err(from_semver)?;
     let stored = get_contract_version(deps.storage)?;
@@ -272,6 +275,7 @@ fn from_semver(err: semver::Error) -> StdError {
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
         QueryMsg::Port {} => to_binary(&query_port(deps)?),

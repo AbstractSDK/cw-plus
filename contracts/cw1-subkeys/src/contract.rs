@@ -34,6 +34,7 @@ const CONTRACT_NAME: &str = "crates.io:cw1-subkeys";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn instantiate(
     mut deps: DepsMut,
     env: Env,
@@ -46,6 +47,7 @@ pub fn instantiate(
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn execute(
     deps: DepsMut,
     env: Env,
@@ -302,6 +304,7 @@ where
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
         QueryMsg::AdminList {} => to_binary(&query_admin_list(deps)?),
@@ -454,6 +457,7 @@ pub fn query_all_permissions(
 
 // Migrate contract if version is lower than current version
 #[entry_point]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn migrate(deps: DepsMut, _env: Env, _msg: Empty) -> Result<Response, ContractError> {
     let version: Version = CONTRACT_VERSION.parse()?;
     let storage_version: Version = get_contract_version(deps.storage)?.version.parse()?;

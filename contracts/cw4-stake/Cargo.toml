@@ -20,6 +20,7 @@ exclude = [
 crate-type = ["cdylib", "rlib"]
 
 [features]
+interface = ["dep:cw-orch"]
 # for more explicit tests, cargo test --features=backtraces
 backtraces = ["cosmwasm-std/backtraces"]
 # use library feature to disable all instantiate/execute/query exports
@@ -37,3 +38,4 @@ cosmwasm-std = { version = "1.1.0" }
 schemars = "0.8.1"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.23" }
+cw-orch = { git = "https://github.com/AbstractSDK/cw-orchestrator", branch = "fix/where_clause_execute_msg_macro", version = "0.13.3", optional = true }

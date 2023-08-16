@@ -13,6 +13,7 @@ documentation = "https://docs.cosmwasm.com"
 crate-type = ["cdylib", "rlib"]
 
 [features]
+interface = ["dep:cw-orch"]
 backtraces = ["cosmwasm-std/backtraces"]
 # use library feature to disable all instantiate/execute/query exports
 library = []
@@ -30,6 +31,7 @@ schemars = "0.8.1"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
 thiserror = "1.0.23"
 semver = "1"
+cw-orch = { git = "https://github.com/AbstractSDK/cw-orchestrator", branch = "fix/where_clause_execute_msg_macro", version = "0.13.3", optional = true }
 
 [dev-dependencies]
 cw1-whitelist = { path = "../cw1-whitelist", version = "1.1.0", features = ["library", "test-utils"] }

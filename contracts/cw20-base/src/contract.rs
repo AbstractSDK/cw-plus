@@ -92,6 +92,7 @@ fn verify_logo(logo: &Logo) -> Result<(), ContractError> {
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn instantiate(
     mut deps: DepsMut,
     _env: Env,
@@ -185,6 +186,7 @@ pub fn validate_accounts(accounts: &[Cw20Coin]) -> Result<(), ContractError> {
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn execute(
     deps: DepsMut,
     env: Env,
@@ -505,6 +507,7 @@ pub fn execute_upload_logo(
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
         QueryMsg::Balance { address } => to_binary(&query_balance(deps, address)?),
@@ -587,6 +590,7 @@ pub fn query_download_logo(deps: Deps) -> StdResult<DownloadLogoResponse> {
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn migrate(deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, ContractError> {
     let original_version =
         ensure_from_older_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;

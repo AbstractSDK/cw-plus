@@ -24,6 +24,7 @@ const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 // Note, you can use StdResult in some functions where you do not
 // make use of the custom errors
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn instantiate(
     deps: DepsMut,
     env: Env,
@@ -65,6 +66,7 @@ pub fn create(
 
 // And declare a custom Error variant for the ones where you will want to make use of it
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn execute(
     deps: DepsMut,
     env: Env,
@@ -158,6 +160,7 @@ pub fn update_members(
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+#[cfg_attr(feature = "interface", cw_orch::interface_entry_point)] // cw-orch automatic
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
         QueryMsg::Member {

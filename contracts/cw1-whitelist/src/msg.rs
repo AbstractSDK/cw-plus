@@ -12,6 +12,7 @@ pub struct InstantiateMsg {
 }
 
 #[cw_serde]
+#[cfg_attr(feature = "interface", derive(cw_orch::ExecuteFns))] // cw-orch automatic
 pub enum ExecuteMsg<T = Empty>
 where
     T: Clone + fmt::Debug + PartialEq + JsonSchema,
@@ -29,6 +30,7 @@ where
 
 #[cw_serde]
 #[derive(QueryResponses)]
+#[cfg_attr(feature = "interface", derive(cw_orch::QueryFns))] // cw-orch automatic
 pub enum QueryMsg<T = Empty>
 where
     T: Clone + fmt::Debug + PartialEq + JsonSchema,
