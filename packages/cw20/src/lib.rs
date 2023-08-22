@@ -24,6 +24,9 @@ pub use crate::query::{
 };
 pub use crate::receiver::Cw20ReceiveMsg;
 
+#[cfg(feature = "interface")]
+pub use crate::msg::Cw20ExecuteMsgFns;
+
 mod balance;
 mod coin;
 mod denom;
