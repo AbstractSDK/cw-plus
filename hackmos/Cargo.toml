@@ -1,0 +1,17 @@
+[package]
+name = "hackmos"
+version = "0.1.0"
+edition = "2021"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+cosmwasm-std = "1.4.0"
+cw-orch = { version = "0.16.4", features = ["daemon"] }
+cw-plus-interface = { version = "0.1.0", path = "../packages/interface" }
+cw20-base = { version = "1.1.1", path = "../contracts/cw20-base", features=["interface"] }
+cw20 = { version = "1.1.1", path = "../packages/cw20", features=["interface"] }
+env_logger = "0.10.0"
+dotenv = "0.15.0"
