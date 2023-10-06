@@ -1,5 +1,5 @@
 [package]
-name = "interface"
+name = "cw-plus-interface"
 version = "0.1.0"
 edition = "2021"
 
