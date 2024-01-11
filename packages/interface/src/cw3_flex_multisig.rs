@@ -10,7 +10,7 @@ impl<Chain: CwEnv> Uploadable for Cw3FlexMultisig<Chain> {
     // Return the path to the wasm file
     fn wasm(&self) -> WasmPath {
         artifacts_dir_from_workspace!()
-            .find_wasm_path("cw3_flex_multisig.wasm")
+            .find_wasm_path("cw3_flex_multisig")
             .unwrap()
     }
     // Return a CosmWasm contract wrapper

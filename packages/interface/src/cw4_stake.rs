@@ -10,7 +10,7 @@ impl<Chain: CwEnv> Uploadable for Cw4Stake<Chain> {
     // Return the path to the wasm file
     fn wasm(&self) -> WasmPath {
         artifacts_dir_from_workspace!()
-            .find_wasm_path("cw1_whitelist.wasm")
+            .find_wasm_path("cw1_whitelist")
             .unwrap()
     }
     // Return a CosmWasm contract wrapper
