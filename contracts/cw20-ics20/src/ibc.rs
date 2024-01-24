@@ -15,7 +15,7 @@ use crate::state::{
     reduce_channel_balance, undo_reduce_channel_balance, ChannelInfo, ReplyArgs, ALLOW_LIST,
     CHANNEL_INFO, CONFIG, REPLY_ARGS,
 };
-use cw20::Cw20ExecuteMsg;
+use abstract_cw20::Cw20ExecuteMsg;
 
 pub const ICS20_VERSION: &str = "ics20-1";
 pub const ICS20_ORDERING: IbcOrder = IbcOrder::Unordered;
@@ -400,9 +400,9 @@ mod test {
 
     use crate::contract::{execute, migrate, query_channel};
     use crate::msg::{ExecuteMsg, MigrateMsg, TransferMsg};
+    use abstract_cw20::Cw20ReceiveMsg;
     use cosmwasm_std::testing::{mock_env, mock_info};
     use cosmwasm_std::{coins, to_json_vec, Addr, IbcEndpoint, IbcMsg, IbcTimeout, Timestamp};
-    use cw20::Cw20ReceiveMsg;
 
     pub const RELAYER: &str = "relayer";
 

@@ -2,9 +2,9 @@ use schemars::JsonSchema;
 
 use std::fmt;
 
+use abstract_cw1::CanExecuteResponse;
 use cosmwasm_schema::{cw_serde, QueryResponses};
 use cosmwasm_std::{CosmosMsg, Empty};
-
 #[cw_serde]
 pub struct InstantiateMsg {
     pub admins: Vec<String>,
@@ -41,7 +41,7 @@ where
     /// Checks permissions of the caller on this proxy.
     /// If CanExecute returns true then a call to `Execute` with the same message,
     /// before any further state changes, should also succeed.
-    #[returns(cw1::CanExecuteResponse)]
+    #[returns(CanExecuteResponse)]
     CanExecute { sender: String, msg: CosmosMsg<T> },
 }
 
@@ -63,7 +63,7 @@ impl AdminListResponse {
     /// Example:
     ///
     /// ```
-    /// # use cw1_whitelist::msg::AdminListResponse;
+    /// # use abstract_cw1_whitelist::msg::AdminListResponse;
     ///
     /// let resp1 = AdminListResponse {
     ///   admins: vec!["admin1".to_owned(), "admin2".to_owned()],

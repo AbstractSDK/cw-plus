@@ -1,9 +1,9 @@
 use cosmwasm_std::{DepsMut, Env, Ibc3ChannelOpenResponse, IbcChannelOpenMsg};
 use cw_orch::{interface, prelude::*};
 
-pub use cw20_ics20::msg::{ExecuteMsg, InitMsg, MigrateMsg, QueryMsg};
+pub use abstract_cw20_ics20::msg::{ExecuteMsg, InitMsg, MigrateMsg, QueryMsg};
 
-use cw20_ics20::{
+use abstract_cw20_ics20::{
     contract,
     ibc::{
         ibc_channel_close, ibc_channel_connect, ibc_channel_open, ibc_packet_ack,
@@ -47,7 +47,7 @@ pub fn ibc_channel_open_fix(
     deps: DepsMut,
     env: Env,
     msg: IbcChannelOpenMsg,
-) -> Result<Option<Ibc3ChannelOpenResponse>, cw20_ics20::ContractError> {
+) -> Result<Option<Ibc3ChannelOpenResponse>, abstract_cw20_ics20::ContractError> {
     ibc_channel_open(deps, env, msg)?;
     Ok(None)
 }

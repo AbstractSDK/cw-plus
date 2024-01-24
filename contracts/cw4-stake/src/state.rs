@@ -1,7 +1,7 @@
+use abstract_cw20::Denom;
+use abstract_cw4::TOTAL_KEY;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, Uint128};
-use cw20::Denom;
-use cw4::TOTAL_KEY;
 use cw_controllers::{Admin, Claims, Hooks};
 use cw_storage_plus::{Item, Map, SnapshotMap, Strategy};
 use cw_utils::Duration;
@@ -23,9 +23,9 @@ pub const CONFIG: Item<Config> = Item::new("config");
 pub const TOTAL: Item<u64> = Item::new(TOTAL_KEY);
 
 pub const MEMBERS: SnapshotMap<&Addr, u64> = SnapshotMap::new(
-    cw4::MEMBERS_KEY,
-    cw4::MEMBERS_CHECKPOINTS,
-    cw4::MEMBERS_CHANGELOG,
+    abstract_cw4::MEMBERS_KEY,
+    abstract_cw4::MEMBERS_CHECKPOINTS,
+    abstract_cw4::MEMBERS_CHANGELOG,
     Strategy::EveryBlock,
 );
 

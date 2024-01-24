@@ -7,8 +7,8 @@ use cosmwasm_std::{
     Response, StdResult,
 };
 
-use cw2::set_contract_version;
-use cw3::{
+use abstract_cw2::set_contract_version;
+use abstract_cw3::{
     Ballot, Proposal, ProposalListResponse, ProposalResponse, Status, Vote, VoteInfo,
     VoteListResponse, VoteResponse, VoterDetail, VoterListResponse, VoterResponse, Votes,
 };
@@ -418,7 +418,7 @@ mod tests {
     use cosmwasm_std::testing::{mock_dependencies, mock_env, mock_info};
     use cosmwasm_std::{coin, from_json, BankMsg, Decimal};
 
-    use cw2::{get_contract_version, ContractVersion};
+    use abstract_cw2::{get_contract_version, ContractVersion};
     use cw_utils::{Duration, Threshold};
 
     use crate::msg::Voter;

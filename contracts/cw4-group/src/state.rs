@@ -1,8 +1,8 @@
-use cosmwasm_std::Addr;
-use cw4::{
+use abstract_cw4::{
     MEMBERS_CHANGELOG, MEMBERS_CHECKPOINTS, MEMBERS_KEY, TOTAL_KEY, TOTAL_KEY_CHANGELOG,
     TOTAL_KEY_CHECKPOINTS,
 };
+use cosmwasm_std::Addr;
 use cw_controllers::{Admin, Hooks};
 use cw_storage_plus::{SnapshotItem, SnapshotMap, Strategy};
 

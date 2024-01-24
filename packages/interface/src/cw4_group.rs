@@ -1,7 +1,7 @@
 use cw_orch::{interface, prelude::*};
 
-use cw4_group::contract;
-pub use cw4_group::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use abstract_cw4_group::contract;
+pub use abstract_cw4_group::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw4Group;

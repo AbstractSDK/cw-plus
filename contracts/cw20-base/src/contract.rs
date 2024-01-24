@@ -5,8 +5,8 @@ use cosmwasm_std::{
     to_json_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdError, StdResult, Uint128,
 };
 
-use cw2::set_contract_version;
-use cw20::{
+use abstract_cw2::set_contract_version;
+use abstract_cw20::{
     BalanceResponse, Cw20Coin, Cw20ReceiveMsg, DownloadLogoResponse, EmbeddedLogo, Logo, LogoInfo,
     MarketingInfoResponse, MinterResponse, TokenInfoResponse,
 };
@@ -1324,8 +1324,10 @@ mod tests {
     mod migration {
         use super::*;
 
+        use abstract_cw20::{
+            AllAllowancesResponse, AllSpenderAllowancesResponse, SpenderAllowanceInfo,
+        };
         use cosmwasm_std::Empty;
-        use cw20::{AllAllowancesResponse, AllSpenderAllowancesResponse, SpenderAllowanceInfo};
         use cw_multi_test::{App, Contract, ContractWrapper, Executor};
         use cw_utils::Expiration;
 
@@ -1406,7 +1408,7 @@ mod tests {
             .unwrap();
 
             // Smoke check that the contract still works.
-            let balance: cw20::BalanceResponse = app
+            let balance: abstract_cw20::BalanceResponse = app
                 .wrap()
                 .query_wasm_smart(
                     cw20_addr.clone(),

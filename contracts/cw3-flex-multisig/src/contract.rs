@@ -7,14 +7,14 @@ use cosmwasm_std::{
     Response, StdResult,
 };
 
-use cw2::set_contract_version;
+use abstract_cw2::set_contract_version;
 
-use cw3::{
+use abstract_cw3::{
     Ballot, Proposal, ProposalListResponse, ProposalResponse, Status, Vote, VoteInfo,
     VoteListResponse, VoteResponse, VoterDetail, VoterListResponse, VoterResponse, Votes,
 };
-use cw3_fixed_multisig::state::{next_id, BALLOTS, PROPOSALS};
-use cw4::{Cw4Contract, MemberChangedHookMsg, MemberDiff};
+use abstract_cw3_fixed_multisig::state::{next_id, BALLOTS, PROPOSALS};
+use abstract_cw4::{Cw4Contract, MemberChangedHookMsg, MemberDiff};
 use cw_storage_plus::Bound;
 use cw_utils::{maybe_addr, Expiration, ThresholdResponse};
 
@@ -489,11 +489,11 @@ fn list_voters(
 mod tests {
     use cosmwasm_std::{coin, coins, Addr, BankMsg, Coin, Decimal, Timestamp, Uint128};
 
-    use cw2::{query_contract_info, ContractVersion};
-    use cw20::{Cw20Coin, UncheckedDenom};
-    use cw3::{DepositError, UncheckedDepositInfo};
-    use cw4::{Cw4ExecuteMsg, Member};
-    use cw4_group::helpers::Cw4GroupContract;
+    use abstract_cw2::{query_contract_info, ContractVersion};
+    use abstract_cw20::{Cw20Coin, UncheckedDenom};
+    use abstract_cw3::{DepositError, UncheckedDepositInfo};
+    use abstract_cw4::{Cw4ExecuteMsg, Member};
+    use abstract_cw4_group::helpers::Cw4GroupContract;
     use cw_multi_test::{
         next_block, App, AppBuilder, BankSudo, Contract, ContractWrapper, Executor, SudoMsg,
     };
@@ -527,18 +527,18 @@ mod tests {
 
     pub fn contract_group() -> Box<dyn Contract<Empty>> {
         let contract = ContractWrapper::new(
-            cw4_group::contract::execute,
-            cw4_group::contract::instantiate,
-            cw4_group::contract::query,
+            abstract_cw4_group::contract::execute,
+            abstract_cw4_group::contract::instantiate,
+            abstract_cw4_group::contract::query,
         );
         Box::new(contract)
     }
 
     fn contract_cw20() -> Box<dyn Contract<Empty>> {
         let contract = ContractWrapper::new(
-            cw20_base::contract::execute,
-            cw20_base::contract::instantiate,
-            cw20_base::contract::query,
+            abstract_cw20_base::contract::execute,
+            abstract_cw20_base::contract::instantiate,
+            abstract_cw20_base::contract::query,
         );
         Box::new(contract)
     }
@@ -555,7 +555,7 @@ mod tests {
     // uploads code and returns address of group contract
     fn instantiate_group(app: &mut App, members: Vec<Member>) -> Addr {
         let group_id = app.store_code(contract_group());
-        let msg = cw4_group::msg::InstantiateMsg {
+        let msg = abstract_cw4_group::msg::InstantiateMsg {
             admin: Some(OWNER.into()),
             members,
         };
@@ -1684,7 +1684,7 @@ mod tests {
         // adds NEWBIE with 2 power -> with snapshot, invalid vote
         // removes VOTER3 -> with snapshot, can vote on proposal
         let newbie: &str = "newbie";
-        let update_msg = cw4_group::msg::ExecuteMsg::UpdateMembers {
+        let update_msg = abstract_cw4_group::msg::ExecuteMsg::UpdateMembers {
             remove: vec![VOTER3.into()],
             add: vec![member(VOTER2, 21), member(newbie, 2)],
         };
@@ -1922,7 +1922,7 @@ mod tests {
 
         // admin changes the group (3 -> 0, 2 -> 9, 0 -> 29) - total = 56, require 29 to pass
         let newbie: &str = "newbie";
-        let update_msg = cw4_group::msg::ExecuteMsg::UpdateMembers {
+        let update_msg = abstract_cw4_group::msg::ExecuteMsg::UpdateMembers {
             remove: vec![VOTER3.into()],
             add: vec![member(VOTER2, 9), member(newbie, 29)],
         };
@@ -2007,7 +2007,7 @@ mod tests {
 
         // admin changes the group (3 -> 0, 2 -> 9, 0 -> 28) - total = 55, require 28 to pass
         let newbie: &str = "newbie";
-        let update_msg = cw4_group::msg::ExecuteMsg::UpdateMembers {
+        let update_msg = abstract_cw4_group::msg::ExecuteMsg::UpdateMembers {
             remove: vec![VOTER3.into()],
             add: vec![member(VOTER2, 9), member(newbie, 29)],
         };
@@ -2174,7 +2174,7 @@ mod tests {
             .instantiate_contract(
                 cw20_id,
                 Addr::unchecked(OWNER),
-                &cw20_base::msg::InstantiateMsg {
+                &abstract_cw20_base::msg::InstantiateMsg {
                     name: "Token".to_string(),
                     symbol: "TOKEN".to_string(),
                     decimals: 6,
@@ -2214,7 +2214,7 @@ mod tests {
         app.execute_contract(
             Addr::unchecked(VOTER4),
             cw20_addr.clone(),
-            &cw20::Cw20ExecuteMsg::IncreaseAllowance {
+            &abstract_cw20::Cw20ExecuteMsg::IncreaseAllowance {
                 spender: flex_addr.to_string(),
                 amount: Uint128::new(10),
                 expires: None,
@@ -2229,22 +2229,22 @@ mod tests {
             .unwrap();
 
         // Make sure the deposit was transfered.
-        let balance: cw20::BalanceResponse = app
+        let balance: abstract_cw20::BalanceResponse = app
             .wrap()
             .query_wasm_smart(
                 cw20_addr.clone(),
-                &cw20::Cw20QueryMsg::Balance {
+                &abstract_cw20::Cw20QueryMsg::Balance {
                     address: VOTER4.to_string(),
                 },
             )
             .unwrap();
         assert_eq!(balance.balance, Uint128::zero());
 
-        let balance: cw20::BalanceResponse = app
+        let balance: abstract_cw20::BalanceResponse = app
             .wrap()
             .query_wasm_smart(
                 cw20_addr.clone(),
-                &cw20::Cw20QueryMsg::Balance {
+                &abstract_cw20::Cw20QueryMsg::Balance {
                     address: flex_addr.to_string(),
                 },
             )
@@ -2260,22 +2260,22 @@ mod tests {
         .unwrap();
 
         // Make sure the deposit was returned.
-        let balance: cw20::BalanceResponse = app
+        let balance: abstract_cw20::BalanceResponse = app
             .wrap()
             .query_wasm_smart(
                 cw20_addr.clone(),
-                &cw20::Cw20QueryMsg::Balance {
+                &abstract_cw20::Cw20QueryMsg::Balance {
                     address: VOTER4.to_string(),
                 },
             )
             .unwrap();
         assert_eq!(balance.balance, Uint128::new(10));
 
-        let balance: cw20::BalanceResponse = app
+        let balance: abstract_cw20::BalanceResponse = app
             .wrap()
             .query_wasm_smart(
                 cw20_addr.clone(),
-                &cw20::Cw20QueryMsg::Balance {
+                &abstract_cw20::Cw20QueryMsg::Balance {
                     address: flex_addr.to_string(),
                 },
             )
@@ -2285,7 +2285,7 @@ mod tests {
         app.execute_contract(
             Addr::unchecked(OWNER),
             cw20_addr.clone(),
-            &cw20::Cw20ExecuteMsg::IncreaseAllowance {
+            &abstract_cw20::Cw20ExecuteMsg::IncreaseAllowance {
                 spender: flex_addr.to_string(),
                 amount: Uint128::new(10),
                 expires: None,
@@ -2300,11 +2300,11 @@ mod tests {
             .unwrap();
 
         // Check that the deposit was transfered.
-        let balance: cw20::BalanceResponse = app
+        let balance: abstract_cw20::BalanceResponse = app
             .wrap()
             .query_wasm_smart(
                 cw20_addr.clone(),
-                &cw20::Cw20QueryMsg::Balance {
+                &abstract_cw20::Cw20QueryMsg::Balance {
                     address: flex_addr.to_string(),
                 },
             )
@@ -2335,11 +2335,11 @@ mod tests {
         .unwrap();
 
         // Make sure the deposit was returned despite the proposal failing.
-        let balance: cw20::BalanceResponse = app
+        let balance: abstract_cw20::BalanceResponse = app
             .wrap()
             .query_wasm_smart(
                 cw20_addr,
-                &cw20::Cw20QueryMsg::Balance {
+                &abstract_cw20::Cw20QueryMsg::Balance {
                     address: VOTER4.to_string(),
                 },
             )

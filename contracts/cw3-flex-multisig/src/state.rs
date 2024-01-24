@@ -1,7 +1,7 @@
+use abstract_cw3::DepositInfo;
+use abstract_cw4::Cw4Contract;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, QuerierWrapper};
-use cw3::DepositInfo;
-use cw4::Cw4Contract;
 use cw_storage_plus::Item;
 use cw_utils::{Duration, Threshold};
 

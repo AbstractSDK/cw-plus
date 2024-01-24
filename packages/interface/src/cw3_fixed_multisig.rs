@@ -1,7 +1,7 @@
 use cw_orch::{interface, prelude::*};
 
-use cw3_fixed_multisig::contract;
-pub use cw3_fixed_multisig::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use abstract_cw3_fixed_multisig::contract;
+pub use abstract_cw3_fixed_multisig::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw3FixedMultisig;

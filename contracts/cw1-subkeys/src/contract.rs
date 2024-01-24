@@ -2,14 +2,8 @@ use schemars::JsonSchema;
 use std::fmt;
 use std::ops::{AddAssign, Sub};
 
-#[cfg(not(feature = "library"))]
-use cosmwasm_std::entry_point;
-use cosmwasm_std::{
-    ensure, ensure_ne, to_json_binary, BankMsg, Binary, Coin, CosmosMsg, Deps, DepsMut,
-    DistributionMsg, Empty, Env, MessageInfo, Order, Response, StakingMsg, StdResult,
-};
-use cw1::CanExecuteResponse;
-use cw1_whitelist::{
+use abstract_cw1::CanExecuteResponse;
+use abstract_cw1_whitelist::{
     contract::{
         execute_freeze, execute_update_admins, instantiate as whitelist_instantiate,
         query_admin_list,
@@ -17,7 +11,13 @@ use cw1_whitelist::{
     msg::InstantiateMsg,
     state::ADMIN_LIST,
 };
-use cw2::{get_contract_version, set_contract_version};
+use abstract_cw2::{get_contract_version, set_contract_version};
+#[cfg(not(feature = "library"))]
+use cosmwasm_std::entry_point;
+use cosmwasm_std::{
+    ensure, ensure_ne, to_json_binary, BankMsg, Binary, Coin, CosmosMsg, Deps, DepsMut,
+    DistributionMsg, Empty, Env, MessageInfo, Order, Response, StakingMsg, StdResult,
+};
 use cw_storage_plus::Bound;
 use cw_utils::Expiration;
 use semver::Version;
@@ -475,8 +475,8 @@ mod tests {
     };
     use cosmwasm_std::{coin, coins, OwnedDeps, StakingMsg, SubMsg, Timestamp};
 
-    use cw1_whitelist::msg::AdminListResponse;
-    use cw2::{get_contract_version, ContractVersion};
+    use abstract_cw1_whitelist::msg::AdminListResponse;
+    use abstract_cw2::{get_contract_version, ContractVersion};
     use cw_utils::NativeBalance;
 
     use crate::state::Permissions;

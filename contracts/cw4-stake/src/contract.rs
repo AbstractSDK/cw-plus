@@ -5,9 +5,9 @@ use cosmwasm_std::{
     Order, Response, StdResult, Storage, SubMsg, Uint128, WasmMsg,
 };
 
-use cw2::set_contract_version;
-use cw20::{Balance, Cw20CoinVerified, Cw20ExecuteMsg, Cw20ReceiveMsg, Denom};
-use cw4::{
+use abstract_cw2::set_contract_version;
+use abstract_cw20::{Balance, Cw20CoinVerified, Cw20ExecuteMsg, Cw20ReceiveMsg, Denom};
+use abstract_cw4::{
     Member, MemberChangedHookMsg, MemberDiff, MemberListResponse, MemberResponse,
     TotalWeightResponse,
 };
@@ -357,12 +357,12 @@ fn list_members(
 
 #[cfg(test)]
 mod tests {
+    use abstract_cw20::Denom;
+    use abstract_cw4::{member_key, TOTAL_KEY};
     use cosmwasm_std::testing::{mock_dependencies, mock_env, mock_info};
     use cosmwasm_std::{
         coin, from_json, CosmosMsg, OverflowError, OverflowOperation, StdError, Storage,
     };
-    use cw20::Denom;
-    use cw4::{member_key, TOTAL_KEY};
     use cw_controllers::{AdminError, Claim, HookError};
     use cw_utils::Duration;
 

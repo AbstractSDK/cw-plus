@@ -1,5 +1,5 @@
+use abstract_cw20::Cw20ReceiveMsg;
 use cosmwasm_schema::{cw_serde, QueryResponses};
-use cw20::Cw20ReceiveMsg;
 
 use crate::amount::Amount;
 use crate::state::ChannelInfo;

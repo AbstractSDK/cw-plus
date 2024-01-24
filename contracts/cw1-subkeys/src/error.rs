@@ -47,11 +47,13 @@ pub enum ContractError {
     SemVer(String),
 }
 
-impl From<cw1_whitelist::ContractError> for ContractError {
-    fn from(err: cw1_whitelist::ContractError) -> Self {
+impl From<abstract_cw1_whitelist::ContractError> for ContractError {
+    fn from(err: abstract_cw1_whitelist::ContractError) -> Self {
         match err {
-            cw1_whitelist::ContractError::Std(error) => ContractError::Std(error),
-            cw1_whitelist::ContractError::Unauthorized {} => ContractError::Unauthorized {},
+            abstract_cw1_whitelist::ContractError::Std(error) => ContractError::Std(error),
+            abstract_cw1_whitelist::ContractError::Unauthorized {} => {
+                ContractError::Unauthorized {}
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, StdResult, Storage};
 
-use cw3::{Ballot, Proposal};
+use abstract_cw3::{Ballot, Proposal};
 use cw_storage_plus::{Item, Map};
 use cw_utils::{Duration, Threshold};
 

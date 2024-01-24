@@ -1,8 +1,8 @@
+use abstract_cw20::{AllowanceResponse, Cw20ReceiveMsg, Expiration};
 use cosmwasm_std::{
     attr, Addr, Binary, BlockInfo, Deps, DepsMut, Env, MessageInfo, Response, StdError, StdResult,
     Storage, Uint128,
 };
-use cw20::{AllowanceResponse, Cw20ReceiveMsg, Expiration};
 
 use crate::error::ContractError;
 use crate::state::{ALLOWANCES, ALLOWANCES_SPENDER, BALANCES, TOKEN_INFO};
@@ -256,9 +256,9 @@ pub fn query_allowance(deps: Deps, owner: String, spender: String) -> StdResult<
 mod tests {
     use super::*;
 
+    use abstract_cw20::{Cw20Coin, TokenInfoResponse};
     use cosmwasm_std::testing::{mock_dependencies_with_balance, mock_env, mock_info};
     use cosmwasm_std::{coins, CosmosMsg, SubMsg, Timestamp, WasmMsg};
-    use cw20::{Cw20Coin, TokenInfoResponse};
 
     use crate::contract::{execute, instantiate, query_balance, query_token_info};
     use crate::msg::{ExecuteMsg, InstantiateMsg};

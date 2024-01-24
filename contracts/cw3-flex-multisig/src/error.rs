@@ -1,5 +1,5 @@
+use abstract_cw3::DepositError;
 use cosmwasm_std::StdError;
-use cw3::DepositError;
 use cw_utils::{PaymentError, ThresholdError};
 
 use thiserror::Error;

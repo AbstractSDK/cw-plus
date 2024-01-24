@@ -47,7 +47,7 @@ impl Allowance {
     ///
     /// ```
     /// # use cw_utils::{Expiration, NativeBalance};
-    /// # use cw1_subkeys::state::Allowance;
+    /// # use abstract_cw1_subkeys::state::Allowance;
     /// # use cosmwasm_std::coin;
     ///
     /// let allow1 = Allowance {

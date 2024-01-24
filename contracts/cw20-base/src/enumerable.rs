@@ -1,8 +1,8 @@
-use cosmwasm_std::{Deps, Order, StdResult};
-use cw20::{
+use abstract_cw20::{
     AllAccountsResponse, AllAllowancesResponse, AllSpenderAllowancesResponse, AllowanceInfo,
     SpenderAllowanceInfo,
 };
+use cosmwasm_std::{Deps, Order, StdResult};
 
 use crate::state::{ALLOWANCES, ALLOWANCES_SPENDER, BALANCES};
 use cw_storage_plus::Bound;
@@ -82,9 +82,9 @@ pub fn query_all_accounts(
 mod tests {
     use super::*;
 
+    use abstract_cw20::{Cw20Coin, Expiration, TokenInfoResponse};
     use cosmwasm_std::testing::{mock_dependencies_with_balance, mock_env, mock_info};
     use cosmwasm_std::{coins, from_json, DepsMut, Uint128};
-    use cw20::{Cw20Coin, Expiration, TokenInfoResponse};
 
     use crate::contract::{execute, instantiate, query, query_token_info};
     use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};

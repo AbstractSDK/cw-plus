@@ -6,8 +6,8 @@ use cosmwasm_std::{
 };
 use semver::Version;
 
-use cw2::{get_contract_version, set_contract_version};
-use cw20::{Cw20Coin, Cw20ReceiveMsg};
+use abstract_cw2::{get_contract_version, set_contract_version};
+use abstract_cw20::{Cw20Coin, Cw20ReceiveMsg};
 use cw_storage_plus::Bound;
 
 use crate::amount::Amount;

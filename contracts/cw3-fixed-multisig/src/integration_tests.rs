@@ -1,9 +1,9 @@
 #![cfg(test)]
 
+use abstract_cw20::{BalanceResponse, MinterResponse};
+use abstract_cw20_base::msg::QueryMsg;
+use abstract_cw3::Vote;
 use cosmwasm_std::{to_json_binary, Addr, Empty, Uint128, WasmMsg};
-use cw20::{BalanceResponse, MinterResponse};
-use cw20_base::msg::QueryMsg;
-use cw3::Vote;
 use cw_multi_test::{App, Contract, ContractWrapper, Executor};
 use cw_utils::{Duration, Threshold};
 
@@ -21,9 +21,9 @@ pub fn contract_cw3_fixed_multisig() -> Box<dyn Contract<Empty>> {
 
 pub fn contract_cw20() -> Box<dyn Contract<Empty>> {
     let contract = ContractWrapper::new(
-        cw20_base::contract::execute,
-        cw20_base::contract::instantiate,
-        cw20_base::contract::query,
+        abstract_cw20_base::contract::execute,
+        abstract_cw20_base::contract::instantiate,
+        abstract_cw20_base::contract::query,
     );
     Box::new(contract)
 }
@@ -72,7 +72,7 @@ fn cw3_controls_cw20() {
     // setup cw20 as cw3 multisig admin
     let cw20_id = router.store_code(contract_cw20());
 
-    let cw20_instantiate_msg = cw20_base::msg::InstantiateMsg {
+    let cw20_instantiate_msg = abstract_cw20_base::msg::InstantiateMsg {
         name: "Consortium Token".parse().unwrap(),
         symbol: "CST".parse().unwrap(),
         decimals: 6,
@@ -97,7 +97,7 @@ fn cw3_controls_cw20() {
     // mint some cw20 tokens according to proposal result
     let mint_recipient = Addr::unchecked("recipient");
     let mint_amount = Uint128::new(1000);
-    let cw20_mint_msg = cw20_base::msg::ExecuteMsg::Mint {
+    let cw20_mint_msg = abstract_cw20_base::msg::ExecuteMsg::Mint {
         recipient: mint_recipient.to_string(),
         amount: mint_amount,
     };

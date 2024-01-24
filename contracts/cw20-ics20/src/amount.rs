@@ -1,13 +1,13 @@
 use crate::error::ContractError;
+use abstract_cw20::Cw20Coin;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Coin, Uint128};
-use cw20::Cw20Coin;
 use std::convert::TryInto;
 
 #[cw_serde]
 pub enum Amount {
     Native(Coin),
-    // FIXME? USe Cw20CoinVerified, and validate cw20 addresses
+    // FIXME? use abstract_cw20CoinVerified, and validate cw20 addresses
     Cw20(Cw20Coin),
 }
 

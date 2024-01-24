@@ -3,7 +3,7 @@ use std::fs::create_dir_all;
 
 use cosmwasm_schema::{export_schema, export_schema_with_title, remove_schemas, schema_for};
 
-use cw3::{
+use abstract_cw3::{
     Cw3ExecuteMsg, Cw3QueryMsg, ProposalListResponse, ProposalResponse, VoteListResponse,
     VoteResponse, VoterDetail, VoterListResponse, VoterResponse,
 };

@@ -1,7 +1,7 @@
 use cosmwasm_schema::{cw_serde, QueryResponses};
 use cosmwasm_std::Uint128;
 
-use cw20::{Cw20ReceiveMsg, Denom};
+use abstract_cw20::{Cw20ReceiveMsg, Denom};
 pub use cw_controllers::ClaimsResponse;
 use cw_utils::Duration;
 
@@ -60,14 +60,14 @@ pub enum QueryMsg {
 
     #[returns(cw_controllers::AdminResponse)]
     Admin {},
-    #[returns(cw4::TotalWeightResponse)]
+    #[returns(abstract_cw4::TotalWeightResponse)]
     TotalWeight {},
-    #[returns(cw4::MemberListResponse)]
+    #[returns(abstract_cw4::MemberListResponse)]
     ListMembers {
         start_after: Option<String>,
         limit: Option<u32>,
     },
-    #[returns(cw4::MemberResponse)]
+    #[returns(abstract_cw4::MemberResponse)]
     Member {
         addr: String,
         at_height: Option<u64>,

@@ -8,8 +8,8 @@ use cosmwasm_std::{
     StdResult,
 };
 
-use cw1::CanExecuteResponse;
-use cw2::set_contract_version;
+use abstract_cw1::CanExecuteResponse;
+use abstract_cw2::set_contract_version;
 
 use crate::error::ContractError;
 use crate::msg::{AdminListResponse, ExecuteMsg, InstantiateMsg, QueryMsg};

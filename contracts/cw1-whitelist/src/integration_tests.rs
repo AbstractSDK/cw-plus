@@ -1,10 +1,10 @@
 use crate::msg::{AdminListResponse, ExecuteMsg, InstantiateMsg, QueryMsg};
+use abstract_cw1::Cw1Contract;
 use anyhow::{anyhow, Result};
 use assert_matches::assert_matches;
 use cosmwasm_std::{
     to_json_binary, Addr, CosmosMsg, Empty, QueryRequest, StdError, WasmMsg, WasmQuery,
 };
-use cw1::Cw1Contract;
 use cw_multi_test::{App, AppResponse, Contract, ContractWrapper, Executor};
 use derivative::Derivative;
 use serde::{de::DeserializeOwned, Serialize};

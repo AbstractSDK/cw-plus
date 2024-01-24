@@ -52,7 +52,7 @@ where
     T: Clone + fmt::Debug + PartialEq + JsonSchema,
 {
     /// Shows all admins and whether or not it is mutable
-    #[returns(cw1_whitelist::msg::AdminListResponse)]
+    #[returns(abstract_cw1_whitelist::msg::AdminListResponse)]
     AdminList {},
     /// Get the current allowance for the given subkey (how much it can spend)
     #[returns(crate::state::Allowance)]
@@ -63,7 +63,7 @@ where
     /// Checks permissions of the caller on this proxy.
     /// If CanExecute returns true then a call to `Execute` with the same message,
     /// before any further state changes, should also succeed.
-    #[returns(cw1::CanExecuteResponse)]
+    #[returns(abstract_cw1::CanExecuteResponse)]
     CanExecute { sender: String, msg: CosmosMsg<T> },
     /// Gets all Allowances for this contract
     #[returns(AllAllowancesResponse)]
@@ -116,7 +116,7 @@ impl AllowanceInfo {
     ///
     /// ```
     /// # use cw_utils::{Expiration, NativeBalance};
-    /// # use cw1_subkeys::msg::AllowanceInfo;
+    /// # use abstract_cw1_subkeys::msg::AllowanceInfo;
     /// # use cosmwasm_schema::{cw_serde, QueryResponses};use cosmwasm_std::coin;
     ///
     /// let mut allows = vec![AllowanceInfo {
@@ -163,8 +163,8 @@ impl PermissionsInfo {
     /// Example:
     ///
     /// ```
-    /// # use cw1_subkeys::msg::PermissionsInfo;
-    /// # use cw1_subkeys::state::Permissions;
+    /// # use abstract_cw1_subkeys::msg::PermissionsInfo;
+    /// # use abstract_cw1_subkeys::state::Permissions;
     ///
     /// let mut perms = vec![PermissionsInfo {
     ///   spender: "spender2".to_owned(),

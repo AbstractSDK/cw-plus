@@ -1,7 +1,7 @@
 use cw_orch::{interface, prelude::*};
 
-use cw20_base::contract;
-pub use cw20_base::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
+use abstract_cw20_base::contract;
+pub use abstract_cw20_base::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, MigrateMsg)]
 pub struct Cw20Base;

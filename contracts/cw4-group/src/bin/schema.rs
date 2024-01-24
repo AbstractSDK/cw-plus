@@ -1,6 +1,6 @@
 use cosmwasm_schema::write_api;
 
-use cw4_group::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use abstract_cw4_group::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 
 fn main() {
     write_api! {

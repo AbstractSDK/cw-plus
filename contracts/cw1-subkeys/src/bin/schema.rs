@@ -1,8 +1,8 @@
 use cosmwasm_schema::write_api;
 
-use cw1_subkeys::msg::{ExecuteMsg, QueryMsg};
+use abstract_cw1_subkeys::msg::{ExecuteMsg, QueryMsg};
 
-use cw1_whitelist::msg::InstantiateMsg;
+use abstract_cw1_whitelist::msg::InstantiateMsg;
 
 fn main() {
     write_api! {

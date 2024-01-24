@@ -1,7 +1,7 @@
 use cw_orch::{interface, prelude::*};
 
-use cw4_stake::contract;
-pub use cw4_stake::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use abstract_cw4_stake::contract;
+pub use abstract_cw4_stake::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw4Stake;

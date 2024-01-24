@@ -1,8 +1,8 @@
 use cw_orch::{interface, prelude::*};
 
-use cw1_subkeys::contract;
-pub use cw1_subkeys::msg::{ExecuteMsg, QueryMsg};
-pub use cw1_whitelist::msg::InstantiateMsg;
+use abstract_cw1_subkeys::contract;
+pub use abstract_cw1_subkeys::msg::{ExecuteMsg, QueryMsg};
+pub use abstract_cw1_whitelist::msg::InstantiateMsg;
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw1SubKeys;
