@@ -1,5 +1,5 @@
 [package]
-name = "cw1"
+name = "abstract-cw1"
 version = "1.2.2"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"

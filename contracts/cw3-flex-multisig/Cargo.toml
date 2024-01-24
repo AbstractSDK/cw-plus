@@ -1,5 +1,5 @@
 [package]
-name = "cw3-flex-multisig"
+name = "abstract-cw3-flex-multisig"
 version = "1.2.2"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
@@ -21,11 +21,11 @@ interface = ["dep:cw-orch"]
 [dependencies]
 cosmwasm-schema = { version = "1.4.0" }
 cw-utils = "1.0.1"
-cw2 = { path = "../../packages/cw2" }
-cw3 = { path = "../../packages/cw3" }
-cw3-fixed-multisig = { path = "../cw3-fixed-multisig", features = ["library"] }
-cw4 = { path = "../../packages/cw4" }
-cw20 = { path = "../../packages/cw20" }
+abstract-cw2 = { path = "../../packages/cw2" }
+abstract-cw3 = { path = "../../packages/cw3" }
+abstract-cw3-fixed-multisig = { path = "../cw3-fixed-multisig", features = ["library"] }
+abstract-cw4 = { path = "../../packages/cw4" }
+abstract-cw20 = { path = "../../packages/cw20" }
 cw-storage-plus = "1.1.0"
 cosmwasm-std = { version = "1.4.0" }
 schemars = "0.8.15"
@@ -34,6 +34,6 @@ thiserror = { version = "1.0.49" }
 cw-orch = { workspace = true, optional = true }
 
 [dev-dependencies]
-cw4-group = { path = "../cw4-group" }
+abstract-cw4-group = { path = "../cw4-group" }
 cw-multi-test = "0.16.5"
-cw20-base = { path = "../cw20-base" }
+abstract-cw20-base = { path = "../cw20-base" }

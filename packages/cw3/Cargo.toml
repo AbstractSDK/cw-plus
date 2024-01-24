@@ -1,5 +1,5 @@
 [package]
-name = "cw3"
+name = "abstract-cw3"
 version = "1.2.2"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
@@ -10,7 +10,7 @@ homepage = "https://cosmwasm.com"
 
 [dependencies]
 cw-utils = "1.0.1"
-cw20 = { path = "../../packages/cw20" }
+abstract-cw20 = { path = "../../packages/cw20" }
 cosmwasm-schema = "1.4.0"
 cosmwasm-std = "1.4.0"
 schemars = "0.8.15"
