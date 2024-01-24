@@ -2,6 +2,11 @@
 name = "abstract-cw-plus-interface"
 version = "1.2.2"
 edition = "2021"
+description = "CW4 implementation of group based on staked tokens"
+license = "Apache-2.0"
+repository = "https://github.com/CosmWasm/cw-plus"
+homepage = "https://cosmwasm.com"
+documentation = "https://docs.cosmwasm.com"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
