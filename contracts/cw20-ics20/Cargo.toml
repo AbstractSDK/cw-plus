@@ -21,11 +21,11 @@ library = []
 [dependencies]
 cosmwasm-schema = { version = "1.4.0" }
 cw-utils = "1.0.1"
-abstract-cw2 = { path = "../../packages/cw2" }
-abstract-cw20 = { path = "../../packages/cw20" }
+abstract-cw2 = {version = "1.2.2", path = "../../packages/cw2" }
+abstract-cw20 = {version = "1.2.2", path = "../../packages/cw20" }
 cosmwasm-std = { version = "1.4.0", features = ["stargate"] }
 cw-storage-plus = "1.1.0"
-cw-controllers = { path = "../../packages/controllers" }
+cw-controllers = { version = "1.2.2", path = "../../packages/controllers" }
 schemars = "0.8.15"
 semver = "1"
 serde = { version = "1.0.188", default-features = false, features = ["derive"] }
