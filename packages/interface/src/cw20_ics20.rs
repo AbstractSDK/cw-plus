@@ -18,7 +18,7 @@ impl<Chain: CwEnv> Uploadable for Cw20Ics20<Chain> {
     // Return the path to the wasm file
     fn wasm(&self) -> WasmPath {
         artifacts_dir_from_workspace!()
-            .find_wasm_path("cw20_ics20.wasm")
+            .find_wasm_path("cw20_ics20")
             .unwrap()
     }
     // Return a CosmWasm contract wrapper
