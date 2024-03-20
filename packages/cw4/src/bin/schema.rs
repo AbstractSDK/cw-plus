@@ -4,7 +4,7 @@ use std::fs::create_dir_all;
 use cosmwasm_schema::{export_schema, remove_schemas, schema_for};
 
 use abstract_cw4::{
-    AdminResponse, Cw4ExecuteMsg, Cw4QueryMsg, Member, MemberChangedHookMsg, MemberListResponse,
+    AdminResponse, Cw4ExecuteMsg, Cw4QueryMsg, MemberChangedHookMsg, MemberListResponse,
     MemberResponse, TotalWeightResponse,
 };
 

@@ -46,4 +46,4 @@ debug-assertions = false
 
 
 [workspace.dependencies]
-cw-orch = { version = "0.20.0" }
+cw-orch = { version = "0.21.1" }
