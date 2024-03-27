@@ -9,7 +9,6 @@ repository = "https://github.com/CosmWasm/cw-plus"
 homepage = "https://cosmwasm.com"
 
 [features]
-interface = ["dep:cw-orch"]
 
 [dependencies]
 cw-utils = "1.0.1"
@@ -17,7 +16,7 @@ cosmwasm-schema = "1.4.0"
 cosmwasm-std = "1.4.0"
 schemars = "0.8.15"
 serde = { version = "1.0.188", default-features = false, features = ["derive"] }
-cw-orch = { workspace = true, optional = true }
+cw-orch = { workspace = true }
 
 [dev-dependencies]
 cosmwasm-schema = { version = "1.4.0" }

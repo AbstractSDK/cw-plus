@@ -17,7 +17,6 @@ backtraces = ["cosmwasm-std/backtraces"]
 # use library feature to disable all instantiate/execute/query exports
 library = []
 test-utils = []
-interface = ["dep:cw-orch"]
 
 [dependencies]
 cosmwasm-schema = { version = "1.4.0" }
@@ -29,7 +28,7 @@ cw-storage-plus = "1.1.0"
 schemars = "0.8.15"
 serde = { version = "1.0.188", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.49" }
-cw-orch = { workspace = true, optional = true }
+cw-orch = { workspace = true }
 
 [dev-dependencies]
 anyhow = "1"
