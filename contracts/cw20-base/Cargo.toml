@@ -27,6 +27,7 @@ schemars = "0.8.15"
 semver = "1"
 serde = { version = "1.0.188", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.49" }
+cw-orch = "0.21"
 
 [dev-dependencies]
 cw-multi-test = "0.16.5"
