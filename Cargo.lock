@@ -530,6 +530,7 @@ version = "1.1.2"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
+ "cw-orch",
  "cw-utils",
  "schemars",
  "serde",
