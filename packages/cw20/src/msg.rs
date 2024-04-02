@@ -4,6 +4,7 @@ use cosmwasm_std::{Binary, Uint128};
 use cw_utils::Expiration;
 
 #[cw_serde]
+#[derive(cw_orch::ExecuteFns)]
 
 pub enum Cw20ExecuteMsg {
     /// Transfer is a base message to move tokens to another account without triggering actions
