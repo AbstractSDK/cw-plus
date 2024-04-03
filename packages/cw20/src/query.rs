@@ -8,7 +8,6 @@ use crate::logo::LogoInfo;
 use cw_utils::Expiration;
 
 #[cw_serde]
-#[derive(cw_orch::QueryFns)]
 pub enum Cw20QueryMsg {
     /// Returns the current balance of the given address, 0 if unset.
     /// Return type: BalanceResponse.
