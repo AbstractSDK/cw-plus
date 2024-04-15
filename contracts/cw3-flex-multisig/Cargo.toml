@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw3-flex-multisig"
-version = "1.3.0"
+version = "1.4.0"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
 description = "Implementing cw3 with multiple voting patterns and dynamic groups"
@@ -22,19 +22,19 @@ cosmwasm-schema = { version = "1.4.0" }
 cw-utils = "1.0.1"
 abstract-cw2 = { version = "1.2.2", path = "../../packages/cw2" }
 abstract-cw3 = { version = "1.2.2", path = "../../packages/cw3" }
-abstract-cw3-fixed-multisig = { version = "1.3.0", path = "../cw3-fixed-multisig", features = [
+abstract-cw3-fixed-multisig = { version = "1.4.0", path = "../cw3-fixed-multisig", features = [
     "library",
 ] }
 abstract-cw4 = { version = "1.2.2", path = "../../packages/cw4" }
-abstract-cw20 = { version = "1.3.0", path = "../../packages/cw20" }
+abstract-cw20 = { version = "1.4.0", path = "../../packages/cw20" }
 cw-storage-plus = "1.1.0"
 cosmwasm-std = { version = "1.4.0" }
 schemars = "0.8.15"
 serde = { version = "1.0.188", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.49" }
-cw-orch = { workspace = true}
+cw-orch = { workspace = true }
 
 [dev-dependencies]
-abstract-cw4-group = { version = "1.3.0", path = "../cw4-group" }
+abstract-cw4-group = { version = "1.4.0", path = "../cw4-group" }
 cw-multi-test = "0.20.0"
-abstract-cw20-base = { version = "1.3.0", path = "../cw20-base" }
+abstract-cw20-base = { version = "1.4.0", path = "../cw20-base" }

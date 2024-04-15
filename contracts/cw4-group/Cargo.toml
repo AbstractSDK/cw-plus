@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw4-group"
-version = "1.3.0"
+version = "1.4.0"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
 description = "Simple cw4 implementation of group membership controlled by admin "
@@ -36,4 +36,4 @@ cosmwasm-std = { version = "1.4.0" }
 schemars = "0.8.15"
 serde = { version = "1.0.188", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.49" }
-cw-orch = { workspace = true}
+cw-orch = { workspace = true }

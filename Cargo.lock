@@ -29,7 +29,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw-plus-interface"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw1",
  "abstract-cw1-subkeys",
@@ -56,7 +56,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw1-subkeys"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw1",
  "abstract-cw1-whitelist",
@@ -74,7 +74,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw1-whitelist"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw1",
  "abstract-cw2",
@@ -106,7 +106,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
@@ -118,7 +118,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20-base"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -136,7 +136,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20-ics20"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -167,7 +167,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3-fixed-multisig"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -186,7 +186,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3-flex-multisig"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -219,7 +219,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw4-group"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw4",
@@ -236,7 +236,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw4-stake"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",

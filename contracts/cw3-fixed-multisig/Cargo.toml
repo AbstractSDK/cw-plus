@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw3-fixed-multisig"
-version = "1.3.0"
+version = "1.4.0"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
 description = "Implementing cw3 with an fixed group multisig"
@@ -30,8 +30,8 @@ thiserror = { version = "1.0.49" }
 cw-orch = { workspace = true }
 
 [dev-dependencies]
-abstract-cw20 = { version = "1.2.2", path = "../../packages/cw20" }
-abstract-cw20-base = { version = "1.3.0", path = "../cw20-base", features = [
+abstract-cw20 = { version = "1.4.0", path = "../../packages/cw20" }
+abstract-cw20-base = { version = "1.4.0", path = "../cw20-base", features = [
     "library",
 ] }
 cw-multi-test = "0.16.1"
