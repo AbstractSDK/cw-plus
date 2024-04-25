@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw-plus-interface"
-version = "1.4.0"
+version = "2.0.0-rc"
 edition = "2021"
 description = "CW4 implementation of group based on staked tokens"
 license = "Apache-2.0"
