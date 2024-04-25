@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.0.0]
+- Stabilizing cw-orch-core dependency.
+
+
 ## [v1.1.1](https://github.com/CosmWasm/cw-plus/tree/v1.1.1) (2023-09-27)
 
 [Full Changelog](https://github.com/CosmWasm/cw-plus/compare/v1.1.0...v1.1.1)

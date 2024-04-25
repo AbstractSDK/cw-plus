@@ -8,13 +8,13 @@ pub struct Cw4Group;
 
 impl<Chain: CwEnv> Uploadable for Cw4Group<Chain> {
     // Return the path to the wasm file
-    fn wasm(&self) -> WasmPath {
+    fn wasm(_chain: &ChainInfoOwned) -> WasmPath {
         artifacts_dir_from_workspace!()
             .find_wasm_path("cw4_group")
             .unwrap()
     }
     // Return a CosmWasm contract wrapper
-    fn wrapper(&self) -> Box<dyn MockContract<Empty>> {
+    fn wrapper() -> Box<dyn MockContract<Empty>> {
         Box::new(ContractWrapper::new_with_empty(
             contract::execute,
             contract::instantiate,

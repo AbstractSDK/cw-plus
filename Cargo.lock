@@ -4,12 +4,12 @@ version = 3
 
 [[package]]
 name = "abstract-cw-multi-test"
-version = "0.21.0"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d88a78a95e5f29406b9cd35685a7023548689af8726bcb1ee8c0031ba73c8574"
+checksum = "33d8a77cbdea0217c303f4909298260363bd80001120689449e58a409fac9072"
 dependencies = [
  "anyhow",
- "bech32",
+ "bech32 0.11.0",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus",
@@ -56,7 +56,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw1-subkeys"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw1",
  "abstract-cw1-whitelist",
@@ -74,7 +74,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw1-whitelist"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw1",
  "abstract-cw2",
@@ -106,7 +106,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
@@ -118,7 +118,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20-base"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -136,7 +136,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20-ics20"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -154,7 +154,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3"
-version = "1.2.2"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw20",
  "cosmwasm-schema",
@@ -167,7 +167,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3-fixed-multisig"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -186,7 +186,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3-flex-multisig"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -219,7 +219,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw4-group"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw2",
  "abstract-cw4",
@@ -236,7 +236,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw4-stake"
-version = "1.4.0"
+version = "2.0.0-rc"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -312,6 +312,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d86b93f97252c47b41663388e6d155714a9d0c398b99f1005cbc5f978b29f445"
 
 [[package]]
+name = "bech32"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d965446196e3b7decd44aa7ee49e31d630118f90ef12f97900f262eb915c951d"
+
+[[package]]
 name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -385,9 +391,9 @@ dependencies = [
 
 [[package]]
 name = "cosmos-sdk-proto"
-version = "0.20.0"
+version = "0.21.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "32560304ab4c365791fd307282f76637213d8083c1a98490c35159cd67852237"
+checksum = "82e23f6ab56d5f031cde05b8b82a5fefd3a1a223595c79e32317a97189e612bc"
 dependencies = [
  "prost 0.12.3",
  "prost-types",
@@ -448,7 +454,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ef8666e572a3a2519010dde88c04d16e9339ae751b56b2bb35081fe3f7d6be74"
 dependencies = [
  "base64",
- "bech32",
+ "bech32 0.9.1",
  "bnum",
  "cosmwasm-crypto",
  "cosmwasm-derive",
@@ -573,7 +579,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cc392a5cb7e778e3f90adbf7faa43c4db7f35b6623224b08886d796718edb875"
 dependencies = [
  "anyhow",
- "bech32",
+ "bech32 0.9.1",
  "cosmwasm-std",
  "cw-storage-plus",
  "cw-utils",
@@ -588,9 +594,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch"
-version = "0.21.2"
+version = "0.22.0-rc1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1d7a301fa9eb856c384ec8df1ca52ffa845e5045d81f663eba0a66da71a63342"
+checksum = "f2dadb0d3efe8116adde3a00e005d6bb8e6d5e61269ee298f16575137920789b"
 dependencies = [
  "anyhow",
  "cosmwasm-std",
@@ -620,9 +626,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-core"
-version = "0.21.1"
+version = "1.0.0-rc"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75efacab678d8cdf3c22d28a2753ded502b07157a6bc27987fcbda33b16ea648"
+checksum = "ec6d4ff5ea61a14a73b9c480d2600a0e8fbb847ea3e6696741d0a4289e2b81a0"
 dependencies = [
  "abstract-cw-multi-test",
  "anyhow",
@@ -651,9 +657,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-mock"
-version = "0.21.1"
+version = "0.22.0-rc"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8d441cc8add8f72f0ef88a9bce1a8af1e356fcaceb8414e64d22b5e4feb0a3fc"
+checksum = "bdbe04cc54fa4559a6efb4e2dd20a921e064da36e274b440150d4b7e6a56ed45"
 dependencies = [
  "abstract-cw-multi-test",
  "cosmwasm-std",
@@ -666,9 +672,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-traits"
-version = "0.21.0"
+version = "0.22.0-rc"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df86f12047e79cd7215643d80468faa11208925ae74cb2e63af90fd046051cf9"
+checksum = "4509406490b3682b7af9d7f0afac0021ffb54fbb8a4c7294218740498681e962"
 dependencies = [
  "cw-orch-core",
  "prost 0.12.3",
@@ -1115,13 +1121,13 @@ checksum = "51d515d32fb182ee37cda2ccdcb92950d6a3c2893aa280e540671c2cd0f3b1d9"
 
 [[package]]
 name = "num-derive"
-version = "0.3.3"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "876a53fff98e03a936a674b29568b0e605f06b29372c2489ff4de23f1949743d"
+checksum = "ed3955f1a9c7c0c15e092f9c887db08b1fc683305fdf6eb6684f22555355e202"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn 2.0.55",
 ]
 
 [[package]]
@@ -1545,9 +1551,9 @@ dependencies = [
 
 [[package]]
 name = "tendermint-proto"
-version = "0.34.1"
+version = "0.35.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b797dd3d2beaaee91d2f065e7bdf239dc8d80bba4a183a288bc1279dd5a69a1e"
+checksum = "ff525d5540a9fc535c38dc0d92a98da3ee36fcdfbda99cecb9f3cce5cd4d41d7"
 dependencies = [
  "bytes",
  "flex-error",

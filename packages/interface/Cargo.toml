@@ -14,11 +14,11 @@ documentation = "https://docs.cosmwasm.com"
 cosmwasm-std = "1.4.1"
 cw-orch = { workspace = true }
 abstract-cw1 = { version = "1.2.2", path = "../cw1" }
-abstract-cw1-subkeys = { version = "1.4.0", path = "../../contracts/cw1-subkeys" }
-abstract-cw1-whitelist = { version = "1.4.0", path = "../../contracts/cw1-whitelist" }
-abstract-cw20-base = { version = "1.2.2", path = "../../contracts/cw20-base" }
-abstract-cw20-ics20 = { version = "1.2.2", path = "../../contracts/cw20-ics20" }
-abstract-cw3-fixed-multisig = { version = "1.2.2", path = "../../contracts/cw3-fixed-multisig" }
-abstract-cw3-flex-multisig = { version = "1.2.2", path = "../../contracts/cw3-flex-multisig" }
-abstract-cw4-group = { version = "1.2.2", path = "../../contracts/cw4-group" }
-abstract-cw4-stake = { version = "1.2.2", path = "../../contracts/cw4-stake" }
+abstract-cw1-subkeys = { version = "2.0.0-rc", path = "../../contracts/cw1-subkeys" }
+abstract-cw1-whitelist = { version = "2.0.0-rc", path = "../../contracts/cw1-whitelist" }
+abstract-cw20-base = { version = "2.0.0-rc", path = "../../contracts/cw20-base" }
+abstract-cw20-ics20 = { version = "2.0.0-rc", path = "../../contracts/cw20-ics20" }
+abstract-cw3-fixed-multisig = { version = "2.0.0-rc", path = "../../contracts/cw3-fixed-multisig" }
+abstract-cw3-flex-multisig = { version = "2.0.0-rc", path = "../../contracts/cw3-flex-multisig" }
+abstract-cw4-group = { version = "2.0.0-rc", path = "../../contracts/cw4-group" }
+abstract-cw4-stake = { version = "2.0.0-rc", path = "../../contracts/cw4-stake" }

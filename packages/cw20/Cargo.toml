@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw20"
-version = "1.4.0"
+version = "2.0.0-rc"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
 description = "Definition and types for the CosmWasm-20 interface"
