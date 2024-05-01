@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw4-group"
-version = "2.0.0-rc"
+version = "2.0.0"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
 description = "Simple cw4 implementation of group membership controlled by admin "

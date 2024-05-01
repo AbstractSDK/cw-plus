@@ -29,7 +29,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw-plus-interface"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw1",
  "abstract-cw1-subkeys",
@@ -56,7 +56,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw1-subkeys"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw1",
  "abstract-cw1-whitelist",
@@ -74,7 +74,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw1-whitelist"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw1",
  "abstract-cw2",
@@ -106,7 +106,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
@@ -118,7 +118,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20-base"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -136,7 +136,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw20-ics20"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -154,7 +154,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw20",
  "cosmwasm-schema",
@@ -167,7 +167,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3-fixed-multisig"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -186,7 +186,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw3-flex-multisig"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -219,7 +219,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw4-group"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw4",
@@ -236,7 +236,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw4-stake"
-version = "2.0.0-rc"
+version = "2.0.0"
 dependencies = [
  "abstract-cw2",
  "abstract-cw20",
@@ -594,9 +594,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch"
-version = "0.22.0-rc1"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f2dadb0d3efe8116adde3a00e005d6bb8e6d5e61269ee298f16575137920789b"
+checksum = "0ab0efd28ea15c6d2a12736379c67b97118268b8b1c227483b315286a182da12"
 dependencies = [
  "anyhow",
  "cosmwasm-std",
@@ -626,9 +626,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-core"
-version = "1.0.0-rc"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec6d4ff5ea61a14a73b9c480d2600a0e8fbb847ea3e6696741d0a4289e2b81a0"
+checksum = "1c8e62b4d04699596bc2f45c57a8e5459495584d8127588ae4bbe7f95d616b61"
 dependencies = [
  "abstract-cw-multi-test",
  "anyhow",
@@ -657,9 +657,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-mock"
-version = "0.22.0-rc"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bdbe04cc54fa4559a6efb4e2dd20a921e064da36e274b440150d4b7e6a56ed45"
+checksum = "ad451fddf9a61db34c7c2fd0852a83238ffcada483dcacfac4622e9085df234f"
 dependencies = [
  "abstract-cw-multi-test",
  "cosmwasm-std",
@@ -672,9 +672,9 @@ dependencies = [
 
 [[package]]
 name = "cw-orch-traits"
-version = "0.22.0-rc"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4509406490b3682b7af9d7f0afac0021ffb54fbb8a4c7294218740498681e962"
+checksum = "5959ce29e9d8a52594b47933a0a2736ea94dd9bf5e29b220cbdbe2b097f07c3a"
 dependencies = [
  "cw-orch-core",
  "prost 0.12.3",
