@@ -10,6 +10,19 @@ documentation = "https://docs.cosmwasm.com"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+library = [
+    "abstract-cw1-subkeys/library",
+    "abstract-cw1-whitelist/library",
+    "abstract-cw20-base/library",
+    "abstract-cw20-ics20/library",
+    "abstract-cw3-fixed-multisig/library",
+    "abstract-cw3-flex-multisig/library",
+    "abstract-cw4-group/library",
+    "abstract-cw4-stake/library",
+]
+
+
 [dependencies]
 cosmwasm-std = "1.4.1"
 cw-orch = { workspace = true }
