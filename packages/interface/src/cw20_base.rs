@@ -1,4 +1,4 @@
-use cw_orch::{interface, prelude::*};
+use cw_orch::interface;
 
 use abstract_cw20_base::contract;
 pub use abstract_cw20_base::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
@@ -6,6 +6,10 @@ pub use abstract_cw20_base::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryM
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, MigrateMsg)]
 pub struct Cw20Base;
 
+#[cfg(not(target_arch = "wasm32"))]
+use cw_orch::prelude::*;
+
+#[cfg(not(target_arch = "wasm32"))]
 impl<Chain: CwEnv> Uploadable for Cw20Base<Chain> {
     // Return the path to the wasm file
     fn wasm(_chain: &ChainInfoOwned) -> WasmPath {

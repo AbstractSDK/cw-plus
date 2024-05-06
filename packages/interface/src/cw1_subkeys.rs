@@ -1,4 +1,4 @@
-use cw_orch::{interface, prelude::*};
+use cw_orch::interface;
 
 use abstract_cw1_subkeys::contract;
 pub use abstract_cw1_subkeys::msg::{ExecuteMsg, QueryMsg};
@@ -7,6 +7,10 @@ pub use abstract_cw1_whitelist::msg::InstantiateMsg;
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw1SubKeys;
 
+#[cfg(not(target_arch = "wasm32"))]
+use cw_orch::prelude::*;
+
+#[cfg(not(target_arch = "wasm32"))]
 impl<Chain: CwEnv> Uploadable for Cw1SubKeys<Chain> {
     // Return the path to the wasm file
     fn wasm(_chain: &ChainInfoOwned) -> WasmPath {

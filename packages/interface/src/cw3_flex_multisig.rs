@@ -1,4 +1,4 @@
-use cw_orch::{interface, prelude::*};
+use cw_orch::interface;
 
 use abstract_cw3_flex_multisig::contract;
 pub use abstract_cw3_flex_multisig::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
@@ -6,6 +6,10 @@ pub use abstract_cw3_flex_multisig::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw3FlexMultisig;
 
+#[cfg(not(target_arch = "wasm32"))]
+use cw_orch::prelude::*;
+
+#[cfg(not(target_arch = "wasm32"))]
 impl<Chain: CwEnv> Uploadable for Cw3FlexMultisig<Chain> {
     // Return the path to the wasm file
     fn wasm(_chain: &ChainInfoOwned) -> WasmPath {

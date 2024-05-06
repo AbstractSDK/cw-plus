@@ -1,5 +1,5 @@
 use cosmwasm_std::{DepsMut, Env, Ibc3ChannelOpenResponse, IbcChannelOpenMsg};
-use cw_orch::{interface, prelude::*};
+use cw_orch::interface;
 
 pub use abstract_cw20_ics20::msg::{ExecuteMsg, InitMsg, MigrateMsg, QueryMsg};
 
@@ -14,6 +14,10 @@ use abstract_cw20_ics20::{
 #[interface(InitMsg, ExecuteMsg, QueryMsg, MigrateMsg)]
 pub struct Cw20Ics20;
 
+#[cfg(not(target_arch = "wasm32"))]
+use cw_orch::prelude::*;
+
+#[cfg(not(target_arch = "wasm32"))]
 impl<Chain: CwEnv> Uploadable for Cw20Ics20<Chain> {
     // Return the path to the wasm file
     fn wasm(_chain: &ChainInfoOwned) -> WasmPath {
