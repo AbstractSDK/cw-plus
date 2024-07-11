@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw1-subkeys"
-version = "2.0.0"
+version = "3.0.0"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
 description = "Implement subkeys for authorizing native tokens as a cw1 proxy contract"
@@ -23,7 +23,7 @@ cosmwasm-schema = { version = "1.4.0" }
 cw-utils = "1.0.1"
 abstract-cw1 = { version = "1.2.2", path = "../../packages/cw1" }
 abstract-cw2 = { version = "1.2.2", path = "../../packages/cw2" }
-abstract-cw1-whitelist = { version = "2.0.0", path = "../cw1-whitelist", features = [
+abstract-cw1-whitelist = { version = "3.0.0", path = "../cw1-whitelist", features = [
   "library",
 ] }
 cosmwasm-std = { version = "1.4.0", features = ["staking"] }

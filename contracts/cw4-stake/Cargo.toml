@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw4-stake"
-version = "2.0.0"
+version = "3.0.0"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2021"
 description = "CW4 implementation of group based on staked tokens"
@@ -30,7 +30,7 @@ cosmwasm-schema = { version = "1.4.0" }
 cw-utils = "1.0.1"
 abstract-cw2 = { version = "1.2.2", path = "../../packages/cw2" }
 abstract-cw4 = { version = "1.2.2", path = "../../packages/cw4" }
-abstract-cw20 = { version = "2.0.0", path = "../../packages/cw20" }
+abstract-cw20 = { version = "3.0.0", path = "../../packages/cw20" }
 cw-controllers = { version = "1.1.2", path = "../../packages/controllers" }
 cw-storage-plus = "1.1.0"
 cosmwasm-std = { version = "1.4.0" }
