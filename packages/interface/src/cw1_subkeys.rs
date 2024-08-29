@@ -4,7 +4,7 @@ use cw1_subkeys::contract;
 pub use cw1_subkeys::msg::{ExecuteMsg, QueryMsg};
 pub use cw1_whitelist::msg::InstantiateMsg;
 #[cfg(not(target_arch = "wasm32"))]
-pub use interfaces::{ExecuteMsgInterfaceFns, QueryMsgInterfaceFns, AsyncQueryMsgInterfaceFns};
+pub use interfaces::{AsyncQueryMsgInterfaceFns, ExecuteMsgInterfaceFns, QueryMsgInterfaceFns};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw1SubKeys;
@@ -39,7 +39,7 @@ mod interfaces {
 
     use cosmwasm_schema::schemars::JsonSchema;
 
-    #[derive(cw_orch::ExecuteFns)]
+    #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
     enum ExecuteMsgInterface<T = Empty>
     where
         T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
@@ -48,6 +48,7 @@ mod interfaces {
         /// contract's address as sender. Every implementation has it's own logic to
         /// determine in
         // This method is renamed to not conflict with `execute` method
+        #[renamed(Execute)]
         ExecuteRequests {
             msgs: Vec<cosmwasm_std::CosmosMsg<T>>,
         },
@@ -77,46 +78,10 @@ mod interfaces {
         },
     }
 
-    impl<T> From<ExecuteMsgInterface<T>> for ExecuteMsg<T>
-    where
-        T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
-    {
-        fn from(value: ExecuteMsgInterface<T>) -> Self {
-            match value {
-                ExecuteMsgInterface::ExecuteRequests { msgs } => ExecuteMsg::Execute { msgs },
-                ExecuteMsgInterface::Freeze {} => ExecuteMsg::Freeze {},
-                ExecuteMsgInterface::UpdateAdmins { admins } => ExecuteMsg::UpdateAdmins { admins },
-                ExecuteMsgInterface::IncreaseAllowance {
-                    spender,
-                    amount,
-                    expires,
-                } => ExecuteMsg::IncreaseAllowance {
-                    spender,
-                    amount,
-                    expires,
-                },
-                ExecuteMsgInterface::DecreaseAllowance {
-                    spender,
-                    amount,
-                    expires,
-                } => ExecuteMsg::DecreaseAllowance {
-                    spender,
-                    amount,
-                    expires,
-                },
-                ExecuteMsgInterface::SetPermissions {
-                    spender,
-                    permissions,
-                } => ExecuteMsg::SetPermissions {
-                    spender,
-                    permissions,
-                },
-            }
-        }
-    }
-
     #[cosmwasm_schema::cw_serde]
-    #[derive(cosmwasm_schema::QueryResponses, cw_orch::QueryFns)]
+    #[derive(
+        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, from_interface_derive::FromInterface,
+    )]
     enum QueryMsgInterface<T = Empty>
     where
         T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
@@ -150,20 +115,5 @@ mod interfaces {
             start_after: Option<String>,
             limit: Option<u32>,
         },
-    }
-
-    impl <T> From<QueryMsgInterface<T>> for QueryMsg <T>
-    where
-    T: Clone + std::fmt::Debug + PartialEq + JsonSchema{
-        fn from(value: QueryMsgInterface<T>) -> Self {
-            match value {
-                QueryMsgInterface::AdminList {  } => QueryMsg::AdminList {  },
-                QueryMsgInterface::Allowance { spender } => QueryMsg::Allowance { spender },
-                QueryMsgInterface::Permissions { spender } => QueryMsg::Permissions { spender },
-                QueryMsgInterface::CanExecute { sender, msg } => QueryMsg::CanExecute { sender, msg },
-                QueryMsgInterface::AllAllowances { start_after, limit } => QueryMsg::AllAllowances { start_after, limit },
-                QueryMsgInterface::AllPermissions { start_after, limit } => QueryMsg::AllPermissions { start_after, limit },
-            }
-        }
     }
 }
