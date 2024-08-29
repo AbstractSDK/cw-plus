@@ -1,7 +1,7 @@
 use cw_orch::interface;
 
-use abstract_cw3_flex_multisig::contract;
-pub use abstract_cw3_flex_multisig::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use cw3_flex_multisig::contract;
+pub use cw3_flex_multisig::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw3FlexMultisig;

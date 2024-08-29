@@ -1,9 +1,10 @@
 use cw_orch::interface;
 
-use abstract_cw20_base::contract;
-pub use abstract_cw20_base::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
+use cw20_base::contract;
+pub use cw20_base::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
 
-#[interface(InstantiateMsg, ExecuteMsg, QueryMsg, MigrateMsg)]
+// TODO: cw20 Migrate doesn't implement Debug
+#[interface(InstantiateMsg, ExecuteMsg, QueryMsg, cosmwasm_std::Empty)]
 pub struct Cw20Base;
 
 #[cfg(not(target_arch = "wasm32"))]

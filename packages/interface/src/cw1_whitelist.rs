@@ -1,7 +1,9 @@
 use cw_orch::interface;
 
-use abstract_cw1_whitelist::contract;
-pub use abstract_cw1_whitelist::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use cw1_whitelist::contract;
+pub use cw1_whitelist::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+#[cfg(not(target_arch = "wasm32"))]
+pub use interfaces::{ExecuteMsgInterfaceFns, QueryMsgInterfaceFns, AsyncQueryMsgInterfaceFns};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw1Whitelist;
@@ -24,5 +26,76 @@ impl<Chain: CwEnv> Uploadable for Cw1Whitelist<Chain> {
             contract::instantiate,
             contract::query,
         ))
+    }
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+mod interfaces {
+    use super::*;
+    
+    use cosmwasm_schema::schemars::JsonSchema;
+
+    #[derive(cw_orch::ExecuteFns)]
+    enum ExecuteMsgInterface<T = Empty>
+    where
+        T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
+    {
+        /// Execute requests the contract to re-dispatch all these messages with the
+        /// contract's address as sender. Every implementation has it's own logic to
+        /// determine in
+        Execute {
+            msgs: Vec<cosmwasm_std::CosmosMsg<T>>,
+        },
+        /// Freeze will make a mutable contract immutable, must be called by an admin
+        Freeze {},
+        /// UpdateAdmins will change the admin set of the contract, must be called by an existing admin,
+        /// and only works if the contract is mutable
+        UpdateAdmins { admins: Vec<String> },
+    }
+
+    impl<T> From<ExecuteMsgInterface<T>> for ExecuteMsg<T>
+    where
+        T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
+    {
+        fn from(value: ExecuteMsgInterface<T>) -> Self {
+            match value {
+                ExecuteMsgInterface::Execute { msgs } => ExecuteMsg::Execute { msgs },
+                ExecuteMsgInterface::Freeze {} => ExecuteMsg::Freeze {},
+                ExecuteMsgInterface::UpdateAdmins { admins } => ExecuteMsg::UpdateAdmins { admins },
+            }
+        }
+    }
+
+    #[cosmwasm_schema::cw_serde]
+    #[derive(cosmwasm_schema::QueryResponses, cw_orch::QueryFns)]
+    enum QueryMsgInterface<T = Empty>
+    where
+        T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
+    {
+        /// Shows all admins and whether or not it is mutable
+        #[returns(cw1_whitelist::msg::AdminListResponse)]
+        AdminList {},
+        /// Checks permissions of the caller on this proxy.
+        /// If CanExecute returns true then a call to `Execute` with the same message,
+        /// before any further state changes, should also succeed.
+        #[returns(cw1::CanExecuteResponse)]
+        CanExecute {
+            sender: String,
+            msg: cosmwasm_std::CosmosMsg<T>,
+        },
+    }
+
+    impl<T> From<QueryMsgInterface<T>> for QueryMsg<T>
+    where
+        T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
+    {
+        fn from(value: QueryMsgInterface<T>) -> Self {
+            match value {
+                QueryMsgInterface::AdminList {} => QueryMsg::AdminList {},
+                QueryMsgInterface::CanExecute { sender, msg } => {
+                    QueryMsg::CanExecute { sender, msg }
+                }
+            }
+        }
     }
 }

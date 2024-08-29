@@ -1,6 +1,6 @@
 [package]
 name = "abstract-cw-plus-interface"
-version = "3.0.0"
+version = "2.0.0"
 edition = "2021"
 description = "CW4 implementation of group based on staked tokens"
 license = "Apache-2.0"
@@ -12,26 +12,30 @@ documentation = "https://docs.cosmwasm.com"
 
 [features]
 library = [
-    "abstract-cw1-subkeys/library",
-    "abstract-cw1-whitelist/library",
-    "abstract-cw20-base/library",
-    "abstract-cw20-ics20/library",
-    "abstract-cw3-fixed-multisig/library",
-    "abstract-cw3-flex-multisig/library",
-    "abstract-cw4-group/library",
-    "abstract-cw4-stake/library",
+    "cw1-subkeys/library",
+    "cw1-whitelist/library",
+    "cw20-base/library",
+    "cw20-ics20/library",
+    "cw3-fixed-multisig/library",
+    "cw3-flex-multisig/library",
+    "cw4-group/library",
+    "cw4-stake/library",
 ]
 
 
 [dependencies]
-cosmwasm-std = "1.4.1"
-cw-orch = { workspace = true }
-abstract-cw1 = { version = "1.2.2", path = "../cw1" }
-abstract-cw1-subkeys = { version = "3.0.0", path = "../../contracts/cw1-subkeys" }
-abstract-cw1-whitelist = { version = "3.0.0", path = "../../contracts/cw1-whitelist" }
-abstract-cw20-base = { version = "3.0.0", path = "../../contracts/cw20-base" }
-abstract-cw20-ics20 = { version = "3.0.0", path = "../../contracts/cw20-ics20" }
-abstract-cw3-fixed-multisig = { version = "3.0.0", path = "../../contracts/cw3-fixed-multisig" }
-abstract-cw3-flex-multisig = { version = "3.0.0", path = "../../contracts/cw3-flex-multisig" }
-abstract-cw4-group = { version = "3.0.0", path = "../../contracts/cw4-group" }
-abstract-cw4-stake = { version = "3.0.0", path = "../../contracts/cw4-stake" }
+cosmwasm-std = "2.0.0"
+cw-utils = "2.0.0"
+cosmwasm-schema = "2.0.0"
+cw-orch = { version = "0.25.0" }
+cw1 = { version = "2.0.0" }
+cw1-subkeys = { version = "2.0.0" }
+cw1-whitelist = { version = "2.0.0" }
+cw20-base = { version = "2.0.0" }
+cw20-ics20 = { version = "2.0.0" }
+cw3 = { version = "2.0.0" }
+cw3-fixed-multisig = { version = "2.0.0" }
+cw3-flex-multisig = { version = "2.0.0" }
+cw4-group = { version = "2.0.0" }
+cw4-stake = { version = "2.0.0" }
+from_interface_derive = {version = "0.1.0", path = "../from_interface_derive"}
