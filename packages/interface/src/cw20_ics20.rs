@@ -1,8 +1,3 @@
-use cosmwasm_std::{DepsMut, Env, Ibc3ChannelOpenResponse, IbcChannelOpenMsg};
-use cw_orch::interface;
-
-pub use cw20_ics20::msg::{ExecuteMsg, InitMsg, MigrateMsg, QueryMsg};
-
 use cw20_ics20::{
     contract,
     ibc::{
@@ -10,6 +5,11 @@ use cw20_ics20::{
         ibc_packet_receive, ibc_packet_timeout,
     },
 };
+use cw_orch::interface;
+
+pub use cw20_ics20::msg::{ExecuteMsg, InitMsg, MigrateMsg, QueryMsg};
+#[cfg(not(target_arch = "wasm32"))]
+pub use interfaces::{AsyncQueryMsgInterfaceFns, ExecuteMsgInterfaceFns, QueryMsgInterfaceFns};
 
 #[interface(InitMsg, ExecuteMsg, QueryMsg, MigrateMsg)]
 pub struct Cw20Ics20;
@@ -35,7 +35,7 @@ impl<Chain: CwEnv> Uploadable for Cw20Ics20<Chain> {
             )
             .with_migrate(contract::migrate)
             .with_ibc(
-                ibc_channel_open_fix,
+                ibc_channel_open,
                 ibc_channel_connect,
                 ibc_channel_close,
                 ibc_packet_receive,
@@ -46,12 +46,59 @@ impl<Chain: CwEnv> Uploadable for Cw20Ics20<Chain> {
     }
 }
 
-/// Temporary fix until the cw20_ics20 implementation follows the IBC3 standard
-pub fn ibc_channel_open_fix(
-    deps: DepsMut,
-    env: Env,
-    msg: IbcChannelOpenMsg,
-) -> Result<Option<Ibc3ChannelOpenResponse>, cw20_ics20::ContractError> {
-    ibc_channel_open(deps, env, msg)?;
-    Ok(None)
+// pub fn ibc_channel_open_fix(
+//     deps: DepsMut,
+//     env: Env,
+//     msg: IbcChannelOpenMsg,
+// ) -> Result<Option<Ibc3ChannelOpenResponse>, cw20_ics20::ContractError> {
+//     ibc_channel_open(deps, env, msg)?;
+//     Ok(None)
+// }
+
+#[cfg(not(target_arch = "wasm32"))]
+/// Copy messages of the contract to implement cw-orch helpers on Execute([`cw_orch::ExecuteFns`]) and Query([`cw_orch::QueryFns`]) interfaces
+mod interfaces {
+    use super::*;
+
+    #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
+    pub enum ExecuteMsgInterface {
+        /// This accepts a properly-encoded ReceiveMsg from a cw20 contract
+        Receive(cw20::Cw20ReceiveMsg),
+        /// This allows us to transfer *exactly one* native token
+        Transfer(cw20_ics20::msg::TransferMsg),
+        /// This must be called by gov_contract, will allow a new cw20 token to be sent
+        Allow(cw20_ics20::msg::AllowMsg),
+        /// Change the admin (must be called by current admin)
+        UpdateAdmin { admin: String },
+    }
+
+    #[cosmwasm_schema::cw_serde]
+    #[derive(
+        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, from_interface_derive::FromInterface,
+    )]
+    pub enum QueryMsgInterface {
+        /// Return the port ID bound by this contract.
+        #[returns(cw20_ics20::msg::PortResponse)]
+        Port {},
+        /// Show all channels we have connected to.
+        #[returns(cw20_ics20::msg::ListChannelsResponse)]
+        ListChannels {},
+        /// Returns the details of the name channel, error if not created.
+        #[returns(cw20_ics20::msg::ChannelResponse)]
+        Channel { id: String },
+        /// Show the Config.
+        #[returns(cw20_ics20::msg::ConfigResponse)]
+        Config {},
+        #[returns(cw_controllers::AdminResponse)]
+        Admin {},
+        /// Query if a given cw20 contract is allowed.
+        #[returns(cw20_ics20::msg::AllowedResponse)]
+        Allowed { contract: String },
+        /// List all allowed cw20 contracts.
+        #[returns(cw20_ics20::msg::ListAllowedResponse)]
+        ListAllowed {
+            start_after: Option<String>,
+            limit: Option<u32>,
+        },
+    }
 }

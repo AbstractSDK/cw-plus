@@ -2,6 +2,8 @@ use cw_orch::interface;
 
 use cw3_flex_multisig::contract;
 pub use cw3_flex_multisig::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+#[cfg(not(target_arch = "wasm32"))]
+pub use interfaces::{AsyncQueryMsgInterfaceFns, ExecuteMsgInterfaceFns, QueryMsgInterfaceFns};
 
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, Empty)]
 pub struct Cw3FlexMultisig;
@@ -24,5 +26,75 @@ impl<Chain: CwEnv> Uploadable for Cw3FlexMultisig<Chain> {
             contract::instantiate,
             contract::query,
         ))
+    }
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+/// Copy messages of the contract to implement cw-orch helpers on Execute([`cw_orch::ExecuteFns`]) and Query([`cw_orch::QueryFns`]) interfaces
+mod interfaces {
+    use super::*;
+
+    #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
+    enum ExecuteMsgInterface {
+        Propose {
+            title: String,
+            description: String,
+            msgs: Vec<cosmwasm_std::CosmosMsg<Empty>>,
+            // note: we ignore API-spec'd earliest if passed, always opens immediately
+            latest: Option<cw_utils::Expiration>,
+        },
+        Vote {
+            proposal_id: u64,
+            vote: cw3::Vote,
+        },
+        #[renamed(Execute)]
+        ExecuteProposal {
+            proposal_id: u64,
+        },
+        Close {
+            proposal_id: u64,
+        },
+        /// Handles update hook messages from the group contract
+        MemberChangedHook(cw4::MemberChangedHookMsg),
+    }
+
+    #[cosmwasm_schema::cw_serde]
+    #[derive(
+        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, from_interface_derive::FromInterface,
+    )]
+    pub enum QueryMsgInterface {
+        #[returns(cw_utils::ThresholdResponse)]
+        Threshold {},
+        #[returns(cw3::ProposalResponse)]
+        Proposal { proposal_id: u64 },
+        #[returns(cw3::ProposalListResponse)]
+        ListProposals {
+            start_after: Option<u64>,
+            limit: Option<u32>,
+        },
+        #[returns(cw3::ProposalListResponse)]
+        ReverseProposals {
+            start_before: Option<u64>,
+            limit: Option<u32>,
+        },
+        #[returns(cw3::VoteResponse)]
+        #[renamed(Vote)]
+        GetVote { proposal_id: u64, voter: String },
+        #[returns(cw3::VoteListResponse)]
+        ListVotes {
+            proposal_id: u64,
+            start_after: Option<String>,
+            limit: Option<u32>,
+        },
+        #[returns(cw3::VoterResponse)]
+        Voter { address: String },
+        #[returns(cw3::VoterListResponse)]
+        ListVoters {
+            start_after: Option<String>,
+            limit: Option<u32>,
+        },
+        /// Gets the current configuration.
+        #[returns(cw3_flex_multisig::state::Config)]
+        Config {},
     }
 }

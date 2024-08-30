@@ -13,7 +13,9 @@ pub fn from_derive(input: TokenStream) -> TokenStream {
     let counter_name = {
         let counter_name = name.to_string();
         // Yep hardcoding here
-        let (counter_name, _) = counter_name.split_once(INTERFACE_POSTFIX).unwrap();
+        let (counter_name, _) = counter_name
+            .split_once(INTERFACE_POSTFIX)
+            .expect(r#"Interface message type supposed to have "Interface" postfix"#);
         proc_macro2::Ident::new(counter_name, proc_macro2::Span::call_site())
     };
     let froms = ast.variants.into_iter().map(|variant| {

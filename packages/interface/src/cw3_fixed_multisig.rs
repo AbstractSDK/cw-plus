@@ -30,6 +30,7 @@ impl<Chain: CwEnv> Uploadable for Cw3FixedMultisig<Chain> {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
+/// Copy messages of the contract to implement cw-orch helpers on Execute([`cw_orch::ExecuteFns`]) and Query([`cw_orch::QueryFns`]) interfaces
 mod interfaces {
     use super::*;
 
@@ -46,7 +47,8 @@ mod interfaces {
             proposal_id: u64,
             vote: cw3::Vote,
         },
-        Execute {
+        #[renamed(Execute)]
+        ExecuteProposal {
             proposal_id: u64,
         },
         Close {
@@ -74,7 +76,8 @@ mod interfaces {
             limit: Option<u32>,
         },
         #[returns(cw3::VoteResponse)]
-        Vote { proposal_id: u64, voter: String },
+        #[renamed(Vote)]
+        GetVote { proposal_id: u64, voter: String },
         #[returns(cw3::VoteListResponse)]
         ListVotes {
             proposal_id: u64,

@@ -30,6 +30,7 @@ impl<Chain: CwEnv> Uploadable for Cw1Whitelist<Chain> {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
+/// Copy messages of the contract to implement cw-orch helpers on Execute([`cw_orch::ExecuteFns`]) and Query([`cw_orch::QueryFns`]) interfaces
 mod interfaces {
     use super::*;
 

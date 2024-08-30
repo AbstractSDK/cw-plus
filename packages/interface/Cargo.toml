@@ -27,15 +27,19 @@ library = [
 cosmwasm-std = "2.0.0"
 cw-utils = "2.0.0"
 cosmwasm-schema = "2.0.0"
-cw-orch = { version = "0.25.0" }
+cw-controllers = { version = "2.0.0" }
 cw1 = { version = "2.0.0" }
 cw1-subkeys = { version = "2.0.0" }
 cw1-whitelist = { version = "2.0.0" }
-cw20-base = { version = "2.0.0" }
-cw20-ics20 = { version = "2.0.0" }
 cw3 = { version = "2.0.0" }
 cw3-fixed-multisig = { version = "2.0.0" }
 cw3-flex-multisig = { version = "2.0.0" }
+cw4 = { version = "2.0.0" }
 cw4-group = { version = "2.0.0" }
 cw4-stake = { version = "2.0.0" }
-from_interface_derive = {version = "0.1.0", path = "../from_interface_derive"}
+cw20 = { version = "2.0.0" }
+cw20-base = { version = "2.0.0" }
+cw20-ics20 = { version = "2.0.0" }
+
+cw-orch = { version = "0.25.0" }
+from_interface_derive = { version = "0.1.0", path = "../from_interface_derive" }
