@@ -12,14 +12,14 @@ documentation = "https://docs.cosmwasm.com"
 
 [features]
 library = [
-    "cw1-subkeys/library",
-    "cw1-whitelist/library",
-    "cw20-base/library",
-    "cw20-ics20/library",
-    "cw3-fixed-multisig/library",
-    "cw3-flex-multisig/library",
-    "cw4-group/library",
-    "cw4-stake/library",
+  "cw1-subkeys/library",
+  "cw1-whitelist/library",
+  "cw20-base/library",
+  "cw20-ics20/library",
+  "cw3-fixed-multisig/library",
+  "cw3-flex-multisig/library",
+  "cw4-group/library",
+  "cw4-stake/library",
 ]
 
 
