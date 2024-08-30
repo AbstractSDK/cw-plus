@@ -46,15 +46,6 @@ impl<Chain: CwEnv> Uploadable for Cw20Ics20<Chain> {
     }
 }
 
-// pub fn ibc_channel_open_fix(
-//     deps: DepsMut,
-//     env: Env,
-//     msg: IbcChannelOpenMsg,
-// ) -> Result<Option<Ibc3ChannelOpenResponse>, cw20_ics20::ContractError> {
-//     ibc_channel_open(deps, env, msg)?;
-//     Ok(None)
-// }
-
 #[cfg(not(target_arch = "wasm32"))]
 /// Copy messages of the contract to implement cw-orch helpers on Execute([`cw_orch::ExecuteFns`]) and Query([`cw_orch::QueryFns`]) interfaces
 mod interfaces {
