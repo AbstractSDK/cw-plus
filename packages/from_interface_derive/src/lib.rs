@@ -37,7 +37,7 @@ pub fn from_derive(input: TokenStream) -> TokenStream {
             .unwrap_or(variant.ident);
         let fields = match variant.fields {
             syn::Fields::Unnamed(variant_fields) => {
-                let variant_fields = (0..variant_fields.unnamed.len()).into_iter().map(|i| {
+                let variant_fields = (0..variant_fields.unnamed.len()).map(|i| {
                     proc_macro2::Ident::new(&format!("arg{i}"), proc_macro2::Span::call_site())
                 });
                 quote!( ( #(#variant_fields,)* ) )
