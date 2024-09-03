@@ -326,7 +326,7 @@ mod cw20_ics {
     #[test]
     fn check_interface() {
         let interchain =
-            MockInterchainEnv::new(vec![("juno-1", "sender"), ("stargaze-1", "sender")]);
+            MockBech32InterchainEnv::new(vec![("juno-1", "sender"), ("stargaze-1", "sender")]);
 
         let juno = interchain.get_chain("juno-1").unwrap();
         let stargaze = interchain.get_chain("stargaze-1").unwrap();
@@ -360,7 +360,7 @@ mod cw20_ics {
                 &InitMsg {
                     default_timeout: 3600,
                     gov_contract: gov_juno.to_string(),
-                    allowlist: vec![AllowMsg {}],
+                    allowlist: vec![AllowMsg { contract: cw20.addr_str().unwrap(), gas_limit: None }],
                     default_gas_limit: None,
                 },
                 None,
