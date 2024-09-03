@@ -49,8 +49,8 @@ mod interfaces {
         /// contract's address as sender. Every implementation has it's own logic to
         /// determine in
         // This method is renamed to not conflict with [`CwOrchExecute::execute`]
-        #[renamed(Execute)]
-        ExecuteRequests {
+        #[cw_orch(fn_name("execute_requests"))]
+        Execute {
             msgs: Vec<cosmwasm_std::CosmosMsg<T>>,
         },
         /// Freeze will make a mutable contract immutable, must be called by an admin

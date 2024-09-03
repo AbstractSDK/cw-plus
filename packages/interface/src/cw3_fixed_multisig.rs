@@ -48,8 +48,8 @@ mod interfaces {
             vote: cw3::Vote,
         },
         // This method is renamed to not conflict with [`CwOrchExecute::execute`]
-        #[renamed(Execute)]
-        ExecuteProposal {
+        #[cw_orch(fn_name("execute_proposal"))]
+        Execute {
             proposal_id: u64,
         },
         Close {
@@ -78,8 +78,8 @@ mod interfaces {
         },
         #[returns(cw3::VoteResponse)]
         // This method is renamed to not conflict with [`ExecuteMsgInterface::Vote`]
-        #[renamed(Vote)]
-        GetVote { proposal_id: u64, voter: String },
+        #[cw_orch(fn_name("get_vote"))]
+        Vote { proposal_id: u64, voter: String },
         #[returns(cw3::VoteListResponse)]
         ListVotes {
             proposal_id: u64,

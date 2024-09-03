@@ -5,13 +5,14 @@ use quote::quote;
 use syn::{parse_macro_input, ItemEnum};
 const INTERFACE_POSTFIX: &str = "Interface";
 
-// FIXME: it doesn't support generics (we don't need it right now )
-#[proc_macro_derive(FromInterface, attributes(renamed))]
+#[proc_macro_derive(FromInterface)]
 pub fn from_derive(input: TokenStream) -> TokenStream {
     let ast = parse_macro_input!(input as ItemEnum);
-    let name = &ast.ident;
-    let counter_name = {
-        let counter_name = name.to_string();
+    let (impl_generics, ty_generics, where_clause) = &ast.generics.split_for_impl();
+
+    let interface_name = &ast.ident;
+    let original_name = {
+        let counter_name = interface_name.to_string();
         // Yep hardcoding here
         let (counter_name, _) = counter_name
             .split_once(INTERFACE_POSTFIX)
@@ -20,21 +21,6 @@ pub fn from_derive(input: TokenStream) -> TokenStream {
     };
     let froms = ast.variants.into_iter().map(|variant| {
         let variant_name = variant.ident.clone();
-        let counter_variant_name = variant
-            .attrs
-            .into_iter()
-            .find_map(|attr| {
-                let syn::Meta::List(meta_list) = attr.meta else {
-                    return None;
-                };
-                if meta_list.path.is_ident("renamed") {
-                    let ident = meta_list.parse_args::<proc_macro2::Ident>().unwrap();
-                    Some(ident)
-                } else {
-                    None
-                }
-            })
-            .unwrap_or(variant.ident);
         let fields = match variant.fields {
             syn::Fields::Unnamed(variant_fields) => {
                 let variant_fields = (0..variant_fields.unnamed.len()).map(|i| {
@@ -51,11 +37,13 @@ pub fn from_derive(input: TokenStream) -> TokenStream {
             }
             syn::Fields::Unit => quote!(),
         };
-        quote! ( #name::#variant_name #fields => #counter_name::#counter_variant_name #fields )
+        quote! ( #interface_name::#variant_name #fields => #original_name::#variant_name #fields )
     });
     quote!(
-        impl From<#name> for #counter_name {
-            fn from(value: #name) -> #counter_name {
+        impl #impl_generics From<#interface_name #ty_generics> for #original_name #ty_generics
+        #where_clause
+        {
+            fn from(value: #interface_name #ty_generics) -> #original_name #ty_generics {
                 match value {
                     #(#froms,)*
                 }
