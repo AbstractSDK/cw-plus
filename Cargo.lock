@@ -54,7 +54,7 @@ dependencies = [
 
 [[package]]
 name = "abstract-cw-plus-interface"
-version = "2.0.0"
+version = "4.0.0"
 dependencies = [
  "cosmwasm-schema 2.1.3",
  "cosmwasm-std 2.1.3",

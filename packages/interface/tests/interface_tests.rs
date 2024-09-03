@@ -319,9 +319,12 @@ mod cw20_ics {
     use cosmwasm_std::{coins, to_json_binary, Uint128};
     use cw20::MinterResponse;
     use cw20_base::msg::InstantiateMsg;
-    use cw20_ics20::ibc::{ICS20_ORDERING, ICS20_VERSION};
-    use cw_orch::{mock::Mock, prelude::*};
-    use cw_orch_interchain::{prelude::*, MockInterchainEnv};
+    use cw20_ics20::{
+        ibc::{ICS20_ORDERING, ICS20_VERSION},
+        msg::AllowedInfo,
+    };
+    use cw_orch::prelude::*;
+    use cw_orch_interchain::{env::contract_port, prelude::*};
 
     #[test]
     fn check_interface() {
@@ -332,7 +335,6 @@ mod cw20_ics {
         let stargaze = interchain.get_chain("stargaze-1").unwrap();
 
         let gov_juno = juno.addr_make("gov");
-        let gov_stargaze = stargaze.addr_make("gov");
 
         let cw20 = Cw20Base::new("cw20", juno.clone());
         cw20.upload().unwrap();
@@ -352,40 +354,38 @@ mod cw20_ics {
             &[],
         )
         .unwrap();
-
-        let cw20_ics20_juno = Cw20Ics20::new("cw20_ics20", juno.clone());
-        cw20_ics20_juno.upload().unwrap();
-        cw20_ics20_juno
+        let cw20_ics20 = Cw20Ics20::new("cw20_ics20", juno.clone());
+        cw20_ics20.upload().unwrap();
+        cw20_ics20
             .instantiate(
                 &InitMsg {
                     default_timeout: 3600,
                     gov_contract: gov_juno.to_string(),
-                    allowlist: vec![AllowMsg { contract: cw20.addr_str().unwrap(), gas_limit: None }],
+                    allowlist: vec![AllowMsg {
+                        contract: cw20.addr_str().unwrap(),
+                        gas_limit: None,
+                    }],
                     default_gas_limit: None,
                 },
                 None,
                 &[],
             )
             .unwrap();
-        let cw20_ics20_stargaze = Cw20Ics20::new("cw20_ics20", stargaze.clone());
-        cw20_ics20_stargaze.upload().unwrap();
-        cw20_ics20_stargaze
-            .instantiate(
-                &InitMsg {
-                    default_timeout: 3600,
-                    gov_contract: gov_stargaze.to_string(),
-                    allowlist: vec![],
-                    default_gas_limit: None,
-                },
-                None,
-                &[],
-            )
-            .unwrap();
+        let allow_list = cw20_ics20.list_allowed(None, None).unwrap().allow;
+        assert_eq!(
+            allow_list,
+            vec![AllowedInfo {
+                contract: cw20.addr_str().unwrap(),
+                gas_limit: None
+            }]
+        );
 
         let channel = interchain
-            .create_contract_channel(
-                &cw20_ics20_juno,
-                &cw20_ics20_stargaze,
+            .create_channel(
+                "juno-1",
+                "stargaze-1",
+                &contract_port(&cw20_ics20),
+                &PortId::transfer(),
                 ICS20_VERSION,
                 Some(ICS20_ORDERING),
             )
@@ -394,30 +394,44 @@ mod cw20_ics {
             .interchain_channel
             .get_ordered_ports_from("juno-1")
             .unwrap();
+        let channels = cw20_ics20.list_channels().unwrap().channels;
+        let expected_channel_id = channel.0.channel.unwrap().to_string();
+        assert_eq!(channels[0].id, expected_channel_id);
 
         let user_juno = juno.addr_make("juno");
         let user_stargaze = stargaze.addr_make("stargaze");
 
+        let transfer_msg = TransferMsg {
+            channel: expected_channel_id,
+            remote_address: user_stargaze.to_string(),
+            timeout: None,
+            memo: None,
+        };
+        // Send 100 cw20 coins to stargaze
         cw20.mint(100_u128, user_juno.to_string()).unwrap();
         let response = cw20
             .call_as(&user_juno)
             .send(
                 100_u128,
-                cw20_ics20_juno.addr_str().unwrap(),
-                to_json_binary(&TransferMsg {
-                    channel: channel.0.channel.unwrap().to_string(),
-                    remote_address: user_stargaze.to_string(),
-                    timeout: None,
-                    memo: None,
-                })
-                .unwrap(),
+                cw20_ics20.addr_str().unwrap(),
+                to_json_binary(&transfer_msg).unwrap(),
             )
+            .unwrap();
+        interchain
+            .await_and_check_packets("juno-1", response)
+            .unwrap();
+        // Send 200 native coins to stargaze
+        juno.add_balance(&user_juno, coins(200, "denom")).unwrap();
+        let response = cw20_ics20
+            .call_as(&user_juno)
+            .transfer(transfer_msg, &coins(200, "denom"))
             .unwrap();
         interchain
             .await_and_check_packets("juno-1", response)
             .unwrap();
 
         let balance = stargaze.balance(&user_stargaze, None).unwrap();
-        dbg!(balance);
+        assert_eq!(balance[0].amount, Uint128::new(100));
+        assert_eq!(balance[1].amount, Uint128::new(200));
     }
 }
