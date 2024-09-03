@@ -7,7 +7,7 @@ use cw20_ics20::{
 };
 use cw_orch::interface;
 
-pub use cw20_ics20::msg::{ExecuteMsg, InitMsg, MigrateMsg, QueryMsg};
+pub use cw20_ics20::msg::{AllowMsg, ExecuteMsg, InitMsg, MigrateMsg, QueryMsg, TransferMsg};
 #[cfg(not(target_arch = "wasm32"))]
 pub use interfaces::{AsyncQueryMsgInterfaceFns, ExecuteMsgInterfaceFns, QueryMsgInterfaceFns};
 
