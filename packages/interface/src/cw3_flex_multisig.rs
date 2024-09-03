@@ -48,6 +48,7 @@ mod interfaces {
             proposal_id: u64,
             vote: cw3::Vote,
         },
+        // This method is renamed to not conflict with [`CwOrchExecute::execute`]
         #[renamed(Execute)]
         ExecuteProposal {
             proposal_id: u64,
@@ -79,6 +80,7 @@ mod interfaces {
             limit: Option<u32>,
         },
         #[returns(cw3::VoteResponse)]
+        // This method is renamed to not conflict with [`ExecuteMsgInterface::Vote`]
         #[renamed(Vote)]
         GetVote { proposal_id: u64, voter: String },
         #[returns(cw3::VoteListResponse)]

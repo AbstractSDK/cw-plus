@@ -48,7 +48,7 @@ mod interfaces {
         /// Execute requests the contract to re-dispatch all these messages with the
         /// contract's address as sender. Every implementation has it's own logic to
         /// determine in
-        // This method is renamed to not conflict with `execute` method
+        // This method is renamed to not conflict with [`CwOrchExecute::execute`]
         #[renamed(Execute)]
         ExecuteRequests {
             msgs: Vec<cosmwasm_std::CosmosMsg<T>>,
