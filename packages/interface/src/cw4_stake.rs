@@ -37,6 +37,7 @@ mod interfaces {
     #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
     pub enum ExecuteMsgInterface {
         /// Bond will bond all staking tokens sent with the message and update membership weight
+        #[cw_orch(payable)]
         Bond {},
         /// Unbond will start the unbonding process for the given number of tokens.
         /// The sender immediately loses weight from these tokens, and can claim them

@@ -56,6 +56,7 @@ mod interfaces {
         /// This accepts a properly-encoded ReceiveMsg from a cw20 contract
         Receive(cw20::Cw20ReceiveMsg),
         /// This allows us to transfer *exactly one* native token
+        #[cw_orch(payable)]
         Transfer(cw20_ics20::msg::TransferMsg),
         /// This must be called by gov_contract, will allow a new cw20 token to be sent
         Allow(cw20_ics20::msg::AllowMsg),

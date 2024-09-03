@@ -198,7 +198,7 @@ mod cw4_group_cw3_flex_multisig {
         )
         .unwrap();
         cw3.call_as(&voter1)
-            .propose("foobar", vec![], "title", None)
+            .propose("foobar", vec![], "title", None, &[])
             .unwrap();
         let proposals = cw3.list_proposals(None, None).unwrap();
         let proposal_id = proposals.proposals[0].id;
@@ -212,4 +212,190 @@ mod cw4_group_cw3_flex_multisig {
     }
 }
 
-// TODO: cw4_stake, cw20_base, cw20_ics20
+mod cw4_stake {
+    use abstract_cw_plus_interface::cw4_stake::{
+        Cw4Stake, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
+    };
+    use cosmwasm_std::{coins, Uint128};
+    use cw_orch::{mock::Mock, prelude::*};
+
+    #[test]
+    fn check_interface() {
+        let chain = Mock::new("sender");
+
+        let cw4 = Cw4Stake::new("cw4", chain.clone());
+        cw4.upload().unwrap();
+        cw4.instantiate(
+            &InstantiateMsg {
+                denom: cw20::Denom::Native("abc".to_owned()),
+                tokens_per_weight: Uint128::one(),
+                min_bond: Uint128::one(),
+                unbonding_period: cw_utils::Duration::Time(1231230000),
+                admin: None,
+            },
+            None,
+            &[],
+        )
+        .unwrap();
+
+        let user1 = chain.addr_make("one");
+        let user2 = chain.addr_make("two");
+
+        chain.add_balance(&user1, coins(100, "abc")).unwrap();
+        chain.add_balance(&user2, coins(300, "abc")).unwrap();
+        cw4.call_as(&user1).bond(&coins(100, "abc")).unwrap();
+        cw4.call_as(&user2).bond(&coins(300, "abc")).unwrap();
+
+        let members = cw4.list_members(None, None).unwrap().members;
+        assert!(members.contains(&cw4::Member {
+            addr: user1.to_string(),
+            weight: 100
+        }));
+        assert!(members.contains(&cw4::Member {
+            addr: user2.to_string(),
+            weight: 300
+        }));
+    }
+}
+
+mod cw20_base {
+    use abstract_cw_plus_interface::cw20_base::{
+        Cw20Base, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
+    };
+    use cosmwasm_std::Uint128;
+    use cw20::MinterResponse;
+    use cw_orch::{mock::Mock, prelude::*};
+
+    #[test]
+    fn check_interface() {
+        let chain = Mock::new("sender");
+
+        let cw20 = Cw20Base::new("cw20", chain.clone());
+        cw20.upload().unwrap();
+        cw20.instantiate(
+            &InstantiateMsg {
+                name: "foobar".to_owned(),
+                symbol: "foo".to_owned(),
+                decimals: 12,
+                initial_balances: vec![],
+                mint: Some(MinterResponse {
+                    minter: chain.sender_addr().to_string(),
+                    cap: None,
+                }),
+                marketing: None,
+            },
+            None,
+            &[],
+        )
+        .unwrap();
+
+        let user1 = chain.addr_make("one");
+        let user2 = chain.addr_make("two");
+
+        // Mint 100 for user1
+        cw20.mint(100u128, user1.to_string()).unwrap();
+        // User 1 shares 10 with user2
+        cw20.call_as(&user1)
+            .transfer(10u128, user2.to_string())
+            .unwrap();
+
+        // Check new balance of user1
+        let balance = cw20.balance(user1.to_string()).unwrap().balance;
+        assert_eq!(balance, Uint128::new(90));
+
+        // Check that user2 registered
+        let accounts = cw20.all_accounts(None, None).unwrap().accounts;
+        assert!(accounts.contains(&user2.to_string()));
+    }
+}
+
+mod cw20_ics {
+    use abstract_cw_plus_interface::cw20_ics20::{
+        Cw20Ics20, ExecuteMsgInterfaceFns, InitMsg, QueryMsgInterfaceFns,
+    };
+    use cosmwasm_std::{coins, Uint128};
+    use cw20::MinterResponse;
+    use cw20_ics20::{
+        ibc::{ICS20_ORDERING, ICS20_VERSION},
+        msg::TransferMsg,
+    };
+    use cw_orch::{mock::Mock, prelude::*};
+    use cw_orch_interchain::{prelude::*, MockInterchainEnv};
+
+    #[test]
+    fn check_interface() {
+        let interchain =
+            MockInterchainEnv::new(vec![("juno-1", "sender"), ("stargaze-1", "sender")]);
+
+        let juno = interchain.get_chain("juno-1").unwrap();
+        let stargaze = interchain.get_chain("stargaze-1").unwrap();
+
+        let gov_juno = juno.addr_make("gov");
+        let gov_stargaze = stargaze.addr_make("gov");
+
+        let cw20_juno = Cw20Ics20::new("cw20", juno.clone());
+        cw20_juno.upload().unwrap();
+        cw20_juno
+            .instantiate(
+                &InitMsg {
+                    default_timeout: 3600,
+                    gov_contract: gov_juno.to_string(),
+                    allowlist: vec![],
+                    default_gas_limit: None,
+                },
+                None,
+                &[],
+            )
+            .unwrap();
+        let cw20_stargaze = Cw20Ics20::new("cw20", stargaze.clone());
+        cw20_stargaze.upload().unwrap();
+        cw20_stargaze
+            .instantiate(
+                &InitMsg {
+                    default_timeout: 3600,
+                    gov_contract: gov_stargaze.to_string(),
+                    allowlist: vec![],
+                    default_gas_limit: None,
+                },
+                None,
+                &[],
+            )
+            .unwrap();
+
+        let channel = interchain
+            .create_contract_channel(
+                &cw20_juno,
+                &cw20_stargaze,
+                ICS20_VERSION,
+                Some(ICS20_ORDERING),
+            )
+            .unwrap();
+        let channel = channel
+            .interchain_channel
+            .get_ordered_ports_from("juno-1")
+            .unwrap();
+
+        let user_juno = juno.addr_make("juno");
+        let user_stargaze = stargaze.addr_make("stargaze");
+
+        juno.add_balance(&user_juno, coins(100, "to_send")).unwrap();
+        let response = cw20_juno
+            .call_as(&user_juno)
+            .transfer(
+                TransferMsg {
+                    channel: channel.0.channel.unwrap().to_string(),
+                    remote_address: user_stargaze.to_string(),
+                    timeout: None,
+                    memo: None,
+                },
+                &coins(100, "to_send"),
+            )
+            .unwrap();
+        interchain
+            .await_and_check_packets("juno-1", response)
+            .unwrap();
+
+        let balance = stargaze.balance(&user_stargaze, None).unwrap();
+        dbg!(balance);
+    }
+}

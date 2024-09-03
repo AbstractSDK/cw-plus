@@ -36,6 +36,7 @@ mod interfaces {
 
     #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
     enum ExecuteMsgInterface {
+        #[cw_orch(payable)]
         Propose {
             title: String,
             description: String,

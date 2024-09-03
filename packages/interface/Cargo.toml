@@ -43,3 +43,6 @@ cw20-ics20 = { version = "2.0.0" }
 
 cw-orch = { version = "0.25.0" }
 from_interface_derive = { version = "0.1.0", path = "../from_interface_derive" }
+
+[dev-dependencies]
+cw-orch-interchain = { version = "0.4.0" }
