@@ -13,7 +13,7 @@ pub fn from_derive(input: TokenStream) -> TokenStream {
     let interface_name = &ast.ident;
     let original_name = {
         let counter_name = interface_name.to_string();
-        // Yep hardcoding here
+        // Supporting "{OriginalName}Interface" format only, to simplify macro and interface names
         let (counter_name, _) = counter_name
             .split_once(INTERFACE_POSTFIX)
             .expect(r#"Interface message type supposed to have "Interface" postfix"#);
