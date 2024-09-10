@@ -1,6 +1,6 @@
 [package]
-name = "abstract-cw-plus-interface"
-version = "4.0.0"
+name = "cw-plus-orch"
+version = "0.25.0"                                                 # Version of cw-orch that's used
 edition = "2021"
 description = "CW4 implementation of group based on staked tokens"
 license = "Apache-2.0"
@@ -42,7 +42,7 @@ cw20-base = { version = "2.0.0" }
 cw20-ics20 = { version = "2.0.0" }
 
 cw-orch = { version = "0.25.0" }
-from_interface_derive = { version = "0.1.0", path = "../from_interface_derive" }
+from-interface-derive = { version = "0.1.0", path = "../from-interface-derive" }
 
 [dev-dependencies]
 cw-orch-interchain = { version = "0.4.0" }

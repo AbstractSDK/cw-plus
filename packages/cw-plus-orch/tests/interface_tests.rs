@@ -1,9 +1,9 @@
 mod cw1_subkeys {
-    use abstract_cw_plus_interface::cw1_subkeys::{
-        Cw1SubKeys, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
-    };
     use cw1_whitelist::msg::AdminListResponse;
     use cw_orch::{mock::Mock, prelude::*};
+    use cw_plus_orch::cw1_subkeys::{
+        Cw1SubKeys, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
+    };
 
     #[test]
     fn check_interface() {
@@ -43,11 +43,11 @@ mod cw1_subkeys {
 }
 
 mod cw1_whitelist {
-    use abstract_cw_plus_interface::cw1_whitelist::{
-        Cw1Whitelist, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
-    };
     use cw1_whitelist::msg::AdminListResponse;
     use cw_orch::{mock::Mock, prelude::*};
+    use cw_plus_orch::cw1_whitelist::{
+        Cw1Whitelist, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
+    };
 
     #[test]
     fn check_interface() {
@@ -87,11 +87,11 @@ mod cw1_whitelist {
 }
 
 mod cw3_fixed_multisig {
-    use abstract_cw_plus_interface::cw3_fixed_multisig::{
-        Cw3FixedMultisig, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
-    };
     use cw3_fixed_multisig::msg::Voter;
     use cw_orch::{mock::Mock, prelude::*};
+    use cw_plus_orch::cw3_fixed_multisig::{
+        Cw3FixedMultisig, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
+    };
 
     #[test]
     fn check_interface() {
@@ -134,7 +134,8 @@ mod cw3_fixed_multisig {
 }
 
 mod cw4_group_cw3_flex_multisig {
-    use abstract_cw_plus_interface::{
+    use cw_orch::{mock::Mock, prelude::*};
+    use cw_plus_orch::{
         cw3_flex_multisig::{
             Cw3FlexMultisig, ExecuteMsgInterfaceFns as _, InstantiateMsg as Cw3InstantiateMsg,
             QueryMsgInterfaceFns as _,
@@ -144,7 +145,6 @@ mod cw4_group_cw3_flex_multisig {
             QueryMsgInterfaceFns as _,
         },
     };
-    use cw_orch::{mock::Mock, prelude::*};
 
     #[test]
     fn check_interface() {
@@ -213,11 +213,11 @@ mod cw4_group_cw3_flex_multisig {
 }
 
 mod cw4_stake {
-    use abstract_cw_plus_interface::cw4_stake::{
-        Cw4Stake, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
-    };
     use cosmwasm_std::{coins, Uint128};
     use cw_orch::{mock::Mock, prelude::*};
+    use cw_plus_orch::cw4_stake::{
+        Cw4Stake, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
+    };
 
     #[test]
     fn check_interface() {
@@ -259,12 +259,12 @@ mod cw4_stake {
 }
 
 mod cw20_base {
-    use abstract_cw_plus_interface::cw20_base::{
-        Cw20Base, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
-    };
     use cosmwasm_std::Uint128;
     use cw20::MinterResponse;
     use cw_orch::{mock::Mock, prelude::*};
+    use cw_plus_orch::cw20_base::{
+        Cw20Base, ExecuteMsgInterfaceFns, InstantiateMsg, QueryMsgInterfaceFns,
+    };
 
     #[test]
     fn check_interface() {
@@ -284,7 +284,7 @@ mod cw20_base {
                 }),
                 marketing: None,
             },
-            None,
+            Some(&chain.sender_addr()),
             &[],
         )
         .unwrap();
@@ -306,16 +306,13 @@ mod cw20_base {
         // Check that user2 registered
         let accounts = cw20.all_accounts(None, None).unwrap().accounts;
         assert!(accounts.contains(&user2.to_string()));
+
+        // Can "migrate" with empty
+        cw20.migrate(&Empty {}, cw20.code_id().unwrap()).unwrap();
     }
 }
 
 mod cw20_ics {
-    use abstract_cw_plus_interface::{
-        cw20_base::{Cw20Base, ExecuteMsgInterfaceFns as _},
-        cw20_ics20::{
-            AllowMsg, Cw20Ics20, ExecuteMsgInterfaceFns, InitMsg, QueryMsgInterfaceFns, TransferMsg,
-        },
-    };
     use cosmwasm_std::{coins, to_json_binary, Uint128};
     use cw20::MinterResponse;
     use cw20_base::msg::InstantiateMsg;
@@ -325,6 +322,12 @@ mod cw20_ics {
     };
     use cw_orch::prelude::*;
     use cw_orch_interchain::{env::contract_port, prelude::*};
+    use cw_plus_orch::{
+        cw20_base::{Cw20Base, ExecuteMsgInterfaceFns as _},
+        cw20_ics20::{
+            AllowMsg, Cw20Ics20, ExecuteMsgInterfaceFns, InitMsg, QueryMsgInterfaceFns, TransferMsg,
+        },
+    };
 
     #[test]
     fn check_interface() {

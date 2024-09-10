@@ -53,31 +53,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "abstract-cw-plus-interface"
-version = "4.0.0"
-dependencies = [
- "cosmwasm-schema 2.1.3",
- "cosmwasm-std 2.1.3",
- "cw-controllers 2.0.0",
- "cw-orch 0.25.0",
- "cw-orch-interchain",
- "cw-utils 2.0.0",
- "cw1",
- "cw1-subkeys",
- "cw1-whitelist",
- "cw20 2.0.0",
- "cw20-base",
- "cw20-ics20 2.0.0",
- "cw3",
- "cw3-fixed-multisig",
- "cw3-flex-multisig",
- "cw4",
- "cw4-group",
- "cw4-stake",
- "from_interface_derive",
-]
-
-[[package]]
 name = "abstract-cw1"
 version = "1.2.2"
 dependencies = [
@@ -1414,6 +1389,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "cw-plus-orch"
+version = "0.25.0"
+dependencies = [
+ "cosmwasm-schema 2.1.3",
+ "cosmwasm-std 2.1.3",
+ "cw-controllers 2.0.0",
+ "cw-orch 0.25.0",
+ "cw-orch-interchain",
+ "cw-utils 2.0.0",
+ "cw1",
+ "cw1-subkeys",
+ "cw1-whitelist",
+ "cw20 2.0.0",
+ "cw20-base",
+ "cw20-ics20 2.0.0",
+ "cw3",
+ "cw3-fixed-multisig",
+ "cw3-flex-multisig",
+ "cw4",
+ "cw4-group",
+ "cw4-stake",
+ "from-interface-derive",
+]
+
+[[package]]
 name = "cw-storage-plus"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2041,7 +2041,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c8cbd1169bd7b4a0a20d92b9af7a7e0422888bd38a6f5ec29c1fd8c1558a272e"
 
 [[package]]
-name = "from_interface_derive"
+name = "from-interface-derive"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",

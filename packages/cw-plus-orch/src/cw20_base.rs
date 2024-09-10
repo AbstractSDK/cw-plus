@@ -5,7 +5,7 @@ pub use cw20_base::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
 #[cfg(not(target_arch = "wasm32"))]
 pub use interfaces::{AsyncQueryMsgInterfaceFns, ExecuteMsgInterfaceFns, QueryMsgInterfaceFns};
 
-// TODO: cw20 Migrate doesn't implement Debug
+// TODO: cw20 Migrate doesn't implement Debug: https://github.com/CosmWasm/cw-plus/pull/910
 #[interface(InstantiateMsg, ExecuteMsg, QueryMsg, cosmwasm_std::Empty)]
 pub struct Cw20Base;
 

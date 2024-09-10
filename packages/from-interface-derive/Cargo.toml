@@ -1,5 +1,5 @@
 [package]
-name = "from_interface_derive"
+name = "from-interface-derive"
 version = "0.1.0"
 edition = "2021"
 
