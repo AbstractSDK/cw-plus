@@ -60,7 +60,9 @@ mod interfaces {
 
     #[cosmwasm_schema::cw_serde]
     #[derive(
-        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, cw_orch_from_interface_derive::FromInterface,
+        cosmwasm_schema::QueryResponses,
+        cw_orch::QueryFns,
+        cw_orch_from_interface_derive::FromInterface,
     )]
     pub enum QueryMsgInterface {
         /// Claims shows the tokens in process of unbonding for this address

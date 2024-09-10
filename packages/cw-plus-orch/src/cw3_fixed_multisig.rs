@@ -59,7 +59,9 @@ mod interfaces {
 
     #[cosmwasm_schema::cw_serde]
     #[derive(
-        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, cw_orch_from_interface_derive::FromInterface,
+        cosmwasm_schema::QueryResponses,
+        cw_orch::QueryFns,
+        cw_orch_from_interface_derive::FromInterface,
     )]
     enum QueryMsgInterface {
         #[returns(cw_utils::ThresholdResponse)]
