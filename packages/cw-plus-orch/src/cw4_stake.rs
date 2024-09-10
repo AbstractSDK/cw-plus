@@ -34,7 +34,7 @@ impl<Chain: CwEnv> Uploadable for Cw4Stake<Chain> {
 mod interfaces {
     use super::*;
 
-    #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
+    #[derive(cw_orch::ExecuteFns, cw_orch_from_interface_derive::FromInterface)]
     pub enum ExecuteMsgInterface {
         /// Bond will bond all staking tokens sent with the message and update membership weight
         #[cw_orch(payable)]
@@ -60,7 +60,7 @@ mod interfaces {
 
     #[cosmwasm_schema::cw_serde]
     #[derive(
-        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, from_interface_derive::FromInterface,
+        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, cw_orch_from_interface_derive::FromInterface,
     )]
     pub enum QueryMsgInterface {
         /// Claims shows the tokens in process of unbonding for this address

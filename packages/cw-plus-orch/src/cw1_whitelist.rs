@@ -36,7 +36,7 @@ mod interfaces {
 
     use cosmwasm_schema::schemars::JsonSchema;
 
-    #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
+    #[derive(cw_orch::ExecuteFns, cw_orch_from_interface_derive::FromInterface)]
     enum ExecuteMsgInterface<T = Empty>
     where
         T: Clone + std::fmt::Debug + PartialEq + JsonSchema,
@@ -58,7 +58,7 @@ mod interfaces {
 
     #[cosmwasm_schema::cw_serde]
     #[derive(
-        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, from_interface_derive::FromInterface,
+        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, cw_orch_from_interface_derive::FromInterface,
     )]
     enum QueryMsgInterface<T = Empty>
     where

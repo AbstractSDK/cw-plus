@@ -34,7 +34,7 @@ impl<Chain: CwEnv> Uploadable for Cw3FixedMultisig<Chain> {
 mod interfaces {
     use super::*;
 
-    #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
+    #[derive(cw_orch::ExecuteFns, cw_orch_from_interface_derive::FromInterface)]
     enum ExecuteMsgInterface {
         Propose {
             title: String,
@@ -59,7 +59,7 @@ mod interfaces {
 
     #[cosmwasm_schema::cw_serde]
     #[derive(
-        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, from_interface_derive::FromInterface,
+        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, cw_orch_from_interface_derive::FromInterface,
     )]
     enum QueryMsgInterface {
         #[returns(cw_utils::ThresholdResponse)]

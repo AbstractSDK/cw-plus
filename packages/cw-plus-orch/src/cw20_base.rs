@@ -38,7 +38,7 @@ impl<Chain: CwEnv> Uploadable for Cw20Base<Chain> {
 mod interfaces {
     use super::*;
 
-    #[derive(cw_orch::ExecuteFns, from_interface_derive::FromInterface)]
+    #[derive(cw_orch::ExecuteFns, cw_orch_from_interface_derive::FromInterface)]
 
     pub enum ExecuteMsgInterface {
         /// Transfer is a base message to move tokens to another account without triggering actions
@@ -118,7 +118,9 @@ mod interfaces {
 
     #[cosmwasm_schema::cw_serde]
     #[derive(
-        cosmwasm_schema::QueryResponses, cw_orch::QueryFns, from_interface_derive::FromInterface,
+        cosmwasm_schema::QueryResponses,
+        cw_orch::QueryFns,
+        cw_orch_from_interface_derive::FromInterface,
     )]
     pub enum QueryMsgInterface {
         /// Returns the current balance of the given address, 0 if unset.
